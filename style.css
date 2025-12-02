@@ -4365,3 +4365,51 @@ footer {
   }
 }
 */
+
+/* =======================================
+   MOBILE UI FIXES FOR SHARROW BAY WEBSITE
+======================================= */
+
+/* 1️⃣ Table Reservation Modal – compact on mobile */
+@media (max-width: 600px) {
+  .reservation-modal {
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    padding: 22px 20px !important;
+  }
+  .reservation-form .form-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 2️⃣ Booking page — room select button clipped fix */
+.room-info,
+.room-bottom {
+  padding-right: 20px !important;
+}
+
+.room-card {
+  overflow: visible !important;
+}
+
+/* Booking page room cards */
+.booking-room-card,
+.room-list-card {
+  overflow: visible !important;
+  padding-right: 16px !important;
+}
+
+/* 3️⃣ Homepage — Check Availability card overlapping fix */
+.hero-section {
+  margin-bottom: 40px !important;
+}
+
+@media (max-width: 768px) {
+  .booking-widget {
+    margin-top: 20px !important;
+  }
+  .hero-section {
+    height: auto !important;
+    padding-bottom: 40px !important;
+  }
+}
