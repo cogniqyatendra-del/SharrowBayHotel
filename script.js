@@ -1,9 +1,10 @@
 /* =========================================================================
    Sharrow Bay Hotel - script.js
-   Full reproduction (all features preserved from uploaded script.js)
+   Full Expanded Version (all features preserved + fixes)
    - Modular init blocks
    - Defensive checks (no null.addEventListener errors)
-   - Cloudflare Worker integration (no API key in front-end)
+   - Cloudflare Worker integration (no secret in frontend)
+   - Short replies + user-based dynamic buttons
    ========================================================================= */
 
 /* =========================
@@ -390,7 +391,7 @@ document.addEventListener("keydown", function (e) {
 })();
 
 /* =========================
-   AI CHATBOT — Cloudflare Worker
+   AI CHATBOT — Cloudflare Worker (CORS-enabled)
    ========================= */
 (function initChatbotBlock() {
   document.addEventListener("DOMContentLoaded", () => {
@@ -434,33 +435,42 @@ document.addEventListener("keydown", function (e) {
 
     // add user message
     function addUserMessage(text) {
-      bodyChat.innerHTML += `<div class="ai-msg user">${text}</div>`;
+      bodyChat.innerHTML += `<div class="ai-msg user">${escapeHtml(text)}</div>`;
       scrollChat();
     }
 
-    // add bot message + dynamic buttons
-    function addBotMessage(text, userQuestion = "") {
+    // add bot message + dynamic buttons (based on user message only)
+    function addBotMessage(text, userMessage = "") {
       const msgDiv = document.createElement("div");
       msgDiv.className = "ai-msg bot";
       msgDiv.textContent = text;
       bodyChat.appendChild(msgDiv);
 
-      const lowerText = text.toLowerCase();
+      // Decide buttons based strictly on user input (so AI phrasing won't cause extra buttons)
+      const lowerUser = (userMessage || "").toLowerCase();
       const buttons = [];
 
-      if (lowerText.includes("room") || lowerText.includes("accommodation")) buttons.push({ text: "🏨 View Rooms", link: "#rooms" });
-      if (lowerText.includes("dining") || lowerText.includes("restaurant") || lowerText.includes("menu")) buttons.push({ text: "🍽️ View Dining", link: "#dining" });
-      if (lowerText.includes("event") || lowerText.includes("occasion") || lowerText.includes("celebration")) buttons.push({ text: "🎉 View Events", link: "#events" });
-      if (lowerText.includes("contact") || lowerText.includes("reservation") || lowerText.includes("booking")) buttons.push({ text: "📞 Contact Us", link: "#book" });
-
-      const lowerUserQuestion = userQuestion.toLowerCase();
-      if (lowerUserQuestion.includes("location") || lowerUserQuestion.includes("address") || lowerUserQuestion.includes("where are you") || lowerUserQuestion.includes("how to get") || lowerUserQuestion.includes("directions") || lowerUserQuestion.includes("map")) {
-        setTimeout(() => addMapMessage(), 300);
+      if (lowerUser.includes("room") || lowerUser.includes("rooms") || lowerUser.includes("rate") || lowerUser.includes("booking")) {
+        buttons.push({ text: "🏨 View Rooms", link: "#rooms" });
       }
 
+      if (lowerUser.includes("dining") || lowerUser.includes("restaurant") || lowerUser.includes("menu") || lowerUser.includes("food")) {
+        buttons.push({ text: "🍽️ View Dining", link: "#dining" });
+      }
+
+      if (lowerUser.includes("event") || lowerUser.includes("events") || lowerUser.includes("celebration") || lowerUser.includes("wedding")) {
+        buttons.push({ text: "🎉 View Events", link: "#events" });
+      }
+
+      if (lowerUser.includes("contact") || lowerUser.includes("phone") || lowerUser.includes("call") || lowerUser.includes("reserve")) {
+        buttons.push({ text: "📞 Contact Us", link: "#book" });
+      }
+
+      // render buttons (only if any). Avoid duplicates by clearing previous action buttons below the last bot message.
       if (buttons.length > 0) {
         const btnContainer = document.createElement("div");
         btnContainer.className = "ai-action-buttons";
+
         buttons.forEach((btn) => {
           const button = document.createElement("a");
           button.href = btn.link;
@@ -469,44 +479,75 @@ document.addEventListener("keydown", function (e) {
           button.addEventListener("click", () => (chatPopup.style.display = "none"));
           btnContainer.appendChild(button);
         });
+
         bodyChat.appendChild(btnContainer);
       }
+
       scrollChat();
     }
 
-    // CLOUDflare Worker function — secure
+    // Escape HTML (defensive)
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // CLOUDflare Worker function — secure. Uses strict system prompt and message array.
     async function sendToGroq(msg) {
+      // Your CORS-enabled worker URL (update if different)
       const workerURL = "https://silent-hat-00fc.cogniq-yatendra.workers.dev";
-      const systemPrompt = `You are Sharrow Bay Hotel's AI assistant. You are helpful, friendly, and knowledgeable about the hotel.
-Respond in 2–3 short, friendly sentences. Be warm and professional.`;
+
+      // Strict system prompt to force short replies
+      const systemPrompt = `You are Sharrow Bay Hotel's official AI assistant.
+RULES:
+- Reply in 2–3 short, friendly sentences ONLY.
+- Be brief, professional and helpful.
+- Do NOT provide long definitions or encyclopedic content.
+- If user asks for details (rates, menus), give a short summary and offer to show the page or contact.
+- If the user asks something outside the hotel's services, reply politely that you can only help with Sharrow Bay related info.
+- Do NOT include dynamic buttons or UI instructions in the reply.`;
+
+      // Build messages array: system + user
+      const messages = [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: msg }
+      ];
 
       try {
+        // Send to your Cloudflare Worker which will proxy request to Groq
         const response = await fetch(workerURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            prompt: msg,
-            system: systemPrompt,
-            messages: [{ role: "user", content: msg }]
+            messages: messages,
+            temperature: 0.6,
+            max_tokens: 120
           })
         });
 
-        const data = await response.json();
-        if (!response.ok) {
-          console.error("Worker Error:", data);
-          addBotMessage("⚠️ I'm having trouble connecting right now. Please try again later.");
+        // Parse JSON safely
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok || !data) {
+          console.error("Worker Error or invalid JSON:", data);
+          addBotMessage("⚠️ I'm having trouble connecting right now. Please try again later.", msg);
           return;
         }
 
-        const reply = data?.choices?.[0]?.message?.content || "I'm sorry, I couldn't understand that.";
-        addBotMessage(reply, msg);
+        // Extract reply (model-specific structure)
+        const reply = (data?.choices?.[0]?.message?.content) || (data?.choices?.[0]?.text) || "I'm sorry, I couldn't understand that.";
+        addBotMessage(reply.trim(), msg);
       } catch (err) {
         console.error("Network Error:", err);
-        addBotMessage("⚠️ Network error. Please try again.");
+        addBotMessage("⚠️ Network error. Please try again.", msg);
       }
     }
 
-    // Suggestion chips
+    // suggestion chips
     document.querySelectorAll(".suggestion-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
         const text = chip.textContent;
@@ -537,6 +578,14 @@ Respond in 2–3 short, friendly sentences. Be warm and professional.`;
     input.addEventListener("keypress", (e) => {
       if (e.key === "Enter") sendBtn.click();
     });
+
+    // Auto-initialize greeting (if bodyChat empty)
+    (function maybeAddGreeting() {
+      const hasBotGreeting = !!bodyChat.querySelector(".ai-msg.bot");
+      if (!hasBotGreeting) {
+        addBotMessage("Hello! I'm Sharrow Bay's assistant — ask me about rooms, dining, or events.", "");
+      }
+    })();
   });
 })();
 
