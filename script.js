@@ -482,6 +482,18 @@ document.addEventListener("keydown", function (e) {
 
         bodyChat.appendChild(btnContainer);
       }
+// Show map if user asked for location/map
+if (
+  lowerUser.includes("location") ||
+  lowerUser.includes("where") ||
+  lowerUser.includes("map") ||
+  lowerUser.includes("address") ||
+  lowerUser.includes("locate") ||
+  lowerUser.includes("directions")
+) {
+  addMapMessage();
+}
+
 
       scrollChat();
     }
