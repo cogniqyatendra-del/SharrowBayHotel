@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Book Your Stay | Sharrow Bay Hotel</title>
+    <link rel="icon" href="/assets/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      /* WIZARD SPECIFIC STYLES */
+      body {
+        background-color: #f9f9f9;
+        font-family: var(--font-body);
+        color: var(--primary);
+      }
+
+      /* Custom Header for Booking */
+      .booking-header {
+        background: white;
+        padding: 0 40px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+
+      .booking-brand {
+        font-family: var(--font-heading);
+        font-size: 24px;
+        letter-spacing: 1px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .currency-selector {
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 13px;
+        background: white;
+        color: var(--primary);
+        cursor: pointer;
+        font-family: var(--font-body);
+        transition: all 0.2s;
+      }
+
+      .currency-selector:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* Progress Bar */
+      .progress-container {
+        background: white;
+        padding: 20px 0;
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .progress-steps {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .progress-steps::before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #eee;
+        z-index: 0;
+      }
+
+      .step {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        width: 100px;
+      }
+
+      .step-circle {
+        width: 32px;
+        height: 32px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 8px;
+        color: #ccc;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+      }
+
+      .step.active .step-circle {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.2);
+      }
+
+      .step.completed .step-circle {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+
+      .step-label {
+        color: #999;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+
+      .step.active .step-label {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      /* Main Content Area */
+      .wizard-content {
+        min-height: calc(100vh - 180px);
+        position: relative;
+      }
+
+      /* STEP 1: HERO & WIDGET */
+      #step1 {
+        background: url('images/booking-bg-hd.png') center/cover no-repeat;
+        height: calc(100vh - 180px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      #step1::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+      }
+
+      .booking-widget-dark {
+        background: rgba(30, 30, 36, 0.95); /* Dark card with slight transparency */
+        padding: 40px;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 420px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .widget-title {
+        font-family: var(--font-heading);
+        font-size: 28px;
+        margin-bottom: 25px;
+        font-weight: 400;
+        text-align: center;
+        color: var(--accent);
+      }
+
+      .dark-input-group {
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 0;
+        padding: 12px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: border-color 0.2s;
+        background: rgba(255,255,255,0.05);
+      }
+
+      .dark-input-group:hover {
+        border-color: var(--accent);
+      }
+
+      .dark-label {
+        display: block;
+        font-size: 11px;
+        color: #aaa;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .dark-value {
+        font-size: 15px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .counter-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 0 5px;
+      }
+
+      .counter-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .counter-btn {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s;
+      }
+
+      .counter-btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: white;
+      }
+
+      .promo-code {
+        color: var(--accent);
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        margin-bottom: 30px;
+        justify-content: center;
+      }
+
+      .btn-next {
+        background: var(--accent);
+        color: white;
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 0;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn-next:hover {
+        background: #b08d4b;
+      }
+
+      /* STEP 2: COMPACT ROOM LIST */
+      #step2 {
+        display: none;
+        padding: 60px 20px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .room-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .booking-room-card {
+        background: white;
+        border: 1px solid #eee;
+        display: flex;
+        height: 180px; /* Fixed compact height */
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-radius: 4px;
+      }
+
+      .booking-room-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border-color: var(--accent);
+      }
+
+      .booking-room-img {
+        width: 240px;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .booking-room-info {
+        flex: 1;
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .room-details {
+        flex: 1;
+        padding-right: 20px;
+      }
+
+      .booking-room-title h3 {
+        font-family: var(--font-heading);
+        font-size: 22px;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .booking-room-desc {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .amenities {
+        display: flex;
+        gap: 15px;
+      }
+
+      .amenity {
+        font-size: 12px;
+        color: #888;
+        background: #f5f5f5;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .booking-room-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 15px;
+        min-width: 140px;
+        padding-left: 20px;
+        border-left: 1px solid #f0f0f0;
+      }
+
+      .price-amount {
+        font-family: var(--font-heading);
+        font-size: 26px;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .price-unit {
+        font-size: 11px;
+        color: #999;
+        text-transform: uppercase;
+      }
+
+      .btn-select {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 100%;
+      }
+
+      .btn-select:hover {
+        background: var(--accent);
+      }
+
+      /* STEP 3: CONFIRMATION */
+      #step3 {
+        display: none;
+        padding: 60px 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Hidden Date Input */
+      input[type="date"] {
+        background: transparent;
+        border: none;
+        color: white;
+        font-family: inherit;
+        width: 100%;
+        outline: none;
+      }
+      
+      /* Calendar icon invert */
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .booking-room-card {
+          flex-direction: column;
+          height: auto;
+        }
+        .booking-room-img {
+          width: 100%;
+          height: 180px;
+        }
+        .booking-room-footer {
+          border-left: none;
+          border-top: 1px solid #f0f0f0;
+          padding-left: 0;
+          padding-top: 15px;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        }
+        .btn-select {
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- CUSTOM HEADER -->
+    <!-- MAIN HEADER -->
+    <header>
+      <div class="container topbar">
+        <a href="index.html" class="logo">
+          <img src="images/logo-gold-200.png" alt="Sharrow Bay Hotel logo" />
+          <div class="logo-text">
+            <span class="logo-title">Sharrow Bay</span>
+            <span class="logo-subtitle">Hotel & Lakeside Restaurant</span>
+          </div>
+        </a>
+       <nav>
+ 
+  <a class="nav-link" href="#home">Home</a>
+  <a class="nav-link" href="#rooms">Rooms</a>
+
+  <a class="nav-link" href="#events">Events</a>
+  <a class="nav-link" href="about.html">About</a>
+ <div class="dropdown">
+    <a class="nav-link">MORE ▾</a>
+    <div class="dropdown-menu">
+      <a href="#dining">Dining</a>
+      <a href="#gallery">Gallery</a>
+        <a class="nav-link" href="#virtual-tour">Virtual Tour</a>
+
+    </div>
+  </div>
+  <a class="nav-cta" href="booking.html">Book Now</a>
+</nav>
+
+
+        <button
+          class="mobile-toggle btn"
+          aria-expanded="false"
+          onclick="toggleMobileNav()"
+        >
+          Menu
+        </button>
+      </div>
+    </header>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-container">
+      <div class="progress-steps">
+        <div class="step active" id="p-step1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Dates</div>
+        </div>
+        <div class="step" id="p-step2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Rooms</div>
+        </div>
+        <div class="step" id="p-step3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Confirm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIZARD CONTENT -->
+    <div class="wizard-content">
+      
+      <!-- STEP 1: DATES & GUESTS -->
+      <div id="step1">
+        <div class="booking-widget-dark">
+          <div class="widget-title">Select Your Dates</div>
+          
+          <div class="dark-input-group">
+            <label class="dark-label">Check-in</label>
+            <input type="date" id="checkin" />
+          </div>
+
+          <div class="dark-input-group">
+            <label class="dark-label">Check-out</label>
+            <input type="date" id="checkout" />
+          </div>
+
+          <div class="counter-row">
+            <span class="dark-value" style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #ccc;">Guests</span>
+            <div class="counter-controls">
+              <button class="counter-btn" onclick="updateGuests(-1)">−</button>
+              <span id="guest-count" style="font-size: 16px; min-width: 20px; text-align: center;">2</span>
+              <button class="counter-btn" onclick="updateGuests(1)">+</button>
+            </div>
+          </div>
+
+          <div class="promo-code">
+            <span>+</span> Add promotional code
+          </div>
+
+          <button class="btn-next" onclick="goToStep(2)">Check Availability</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: ROOM SELECTION (Compact) -->
+      <div id="step2">
+        <div class="room-list">
+          <!-- Room 1 -->
+          <article class="booking-room-card">
+            <img src="images/riverside_double.png" alt="Classic Double" class="booking-room-img" onerror="this.src='https://images.unsplash.com/photo-1505693416388-b0346ef4143d?w=800'"/>
+            <div class="booking-room-info">
+              <div class="room-details">
+                <div class="booking-room-title">
+                  <h3>Classic Double Room</h3>
+                </div>
+                <p class="booking-room-desc">Intimate room with period furnishings and garden views. Perfect for a romantic getaway.</p>
+                <div class="amenities">
+                  <span class="amenity">📶 WiFi</span>
+                  <span class="amenity">☕ Coffee</span>
+                  <span class="amenity">🍳 Breakfast</span>
+                </div>
+              </div>
+              <div class="booking-room-footer">
+                <div class="price-tag">
+                  <span class="price-amount">£180</span>
+                  <span class="price-unit">Per Night</span>
+                </div>
+                <button class="btn-select" onclick="selectRoom('Classic Double Room', 180)">Select</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Room 2 -->
+          <article class="booking-room-card">
+            <img src="images/RiverView.jpg" alt="Superior Lakeside" class="booking-room-img" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800'"/>
+            <div class="booking-room-info">
+              <div class="room-details">
+                <div class="booking-room-title">
+                  <h3>Superior Lakeside Room</h3>
+                </div>
+                <p class="booking-room-desc">Spacious room with panoramic lake views, seating area, and antique décor.</p>
+                <div class="amenities">
+                  <span class="amenity">🌊 Lake View</span>
+                  <span class="amenity">🛁 Bathtub</span>
+                  <span class="amenity">🍾 Welcome Drink</span>
+                </div>
+              </div>
+              <div class="booking-room-footer">
+                <div class="price-tag">
+                  <span class="price-amount">£260</span>
+                  <span class="price-unit">Per Night</span>
+                </div>
+                <button class="btn-select" onclick="selectRoom('Superior Lakeside Room', 260)">Select</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Room 3 -->
+          <article class="booking-room-card">
+            <img src="images/Lake-View-Villa-Room.jpg" alt="Premier Suite" class="booking-room-img" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800'"/>
+            <div class="booking-room-info">
+              <div class="room-details">
+                <div class="booking-room-title">
+                  <h3>Premier Suite</h3>
+                </div>
+                <p class="booking-room-desc">The ultimate indulgence. Private balcony, separate lounge, and the finest linens.</p>
+                <div class="amenities">
+                  <span class="amenity">👑 Suite</span>
+                  <span class="amenity">🌅 Balcony</span>
+                  <span class="amenity">🥂 Champagne</span>
+                </div>
+              </div>
+              <div class="booking-room-footer">
+                <div class="price-tag">
+                  <span class="price-amount">£380</span>
+                  <span class="price-unit">Per Night</span>
+                </div>
+                <button class="btn-select" onclick="selectRoom('Premier Suite', 380)">Select</button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div style="margin-top: 30px; text-align: center;">
+             <button class="btn" onclick="goToStep(1)" style="background: none; border: 1px solid #ddd; color: #666;">← Back to Dates</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: CONFIRMATION (Using the previous modal content logic but inline) -->
+      <div id="step3">
+        <div class="booking-widget-dark" style="margin: 0 auto; background: white; color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+          <div class="widget-title" style="color: #333; text-align: center;">Confirm Reservation</div>
+          
+          <div class="booking-summary-card">
+            <h3 id="conf-room-name">Room Name</h3>
+            <div class="summary-row">
+              <span>Dates:</span>
+              <span id="conf-dates">...</span>
+            </div>
+            <div class="summary-row">
+              <span>Guests:</span>
+              <span id="conf-guests">...</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total Price:</span>
+              <span id="conf-price">...</span>
+            </div>
+          </div>
+
+          <form onsubmit="finalizeBooking(event)">
+            <div class="form-group">
+              <label style="display:block; margin-bottom:5px; font-size:13px; color:#666;">Full Name</label>
+              <input type="text" class="input" required placeholder="John Doe" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;" />
+            </div>
+            <div class="form-group" style="margin-top:15px;">
+              <label style="display:block; margin-bottom:5px; font-size:13px; color:#666;">Email</label>
+              <input type="email" class="input" required placeholder="john@example.com" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;" />
+            </div>
+
+            <button type="submit" class="btn-next" style="margin-top: 20px;">Complete Booking</button>
+          </form>
+          
+          <button class="btn" onclick="goToStep(2)" style="margin-top: 15px; background:none; border:none; color:#666; cursor:pointer;">Cancel / Back</button>
+        </div>
+      </div>
+      
+      <!-- SUCCESS SCREEN -->
+      <div id="success-screen" style="display: none; text-align: center; padding-top: 100px;">
+         <div class="success-icon" style="margin: 0 auto 20px;">✓</div>
+         <h2>Booking Confirmed!</h2>
+         <p>Your reservation #SB-9921 is confirmed.</p>
+         <button class="btn primary" onclick="window.location.href='index.html'" style="margin-top: 20px;">Return Home</button>
+      </div>
+
+    </div>
+
+    <script>
+      let currentStep = 1;
+      let guests = 2;
+      let selectedRoom = null;
+      let selectedPrice = 0;
+
+      // Init
+      document.addEventListener('DOMContentLoaded', () => {
+        // Parse URL params
+        const params = new URLSearchParams(window.location.search);
+        const ci = params.get('checkin');
+        const co = params.get('checkout');
+        const g = params.get('guests');
+
+        if (ci) document.getElementById('checkin').value = ci;
+        if (co) document.getElementById('checkout').value = co;
+        if (g) {
+          guests = parseInt(g) || 2;
+          document.getElementById('guest-count').textContent = guests;
+        }
+
+        // If dates are present, maybe auto-advance? 
+        // For now, let user verify dates in Step 1 as per wizard flow.
+      });
+
+      function updateGuests(change) {
+        guests += change;
+        if (guests < 1) guests = 1;
+        document.getElementById('guest-count').textContent = guests;
+      }
+
+      function goToStep(step) {
+        // Validation for Step 1
+        if (step === 2) {
+          const ci = document.getElementById('checkin').value;
+          const co = document.getElementById('checkout').value;
+          if (!ci || !co) {
+            alert('Please select check-in and check-out dates.');
+            return;
+          }
+        }
+
+        // Update UI
+        document.getElementById(`step${currentStep}`).style.display = 'none';
+        document.getElementById(`step${step}`).style.display = step === 1 ? 'flex' : 'block'; // Step 1 is flex for centering
+        
+        // Update Progress Bar
+        document.querySelectorAll('.step').forEach((el, idx) => {
+          el.classList.remove('active', 'completed');
+          if (idx + 1 < step) el.classList.add('completed');
+          if (idx + 1 === step) el.classList.add('active');
+        });
+
+        currentStep = step;
+        window.scrollTo(0, 0);
+      }
+
+      function selectRoom(name, price) {
+        selectedRoom = name;
+        selectedPrice = price;
+        
+        // Populate Step 3
+        document.getElementById('conf-room-name').textContent = name;
+        document.getElementById('conf-guests').textContent = guests + " Guests";
+        
+        const ci = document.getElementById('checkin').value;
+        const co = document.getElementById('checkout').value;
+        document.getElementById('conf-dates').textContent = `${ci} to ${co}`;
+        
+        // Calc nights
+        const d1 = new Date(ci);
+        const d2 = new Date(co);
+        const nights = Math.max(1, Math.ceil(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24)));
+        
+        document.getElementById('conf-price').textContent = `£${price * nights} (${nights} nights)`;
+
+        goToStep(3);
+      }
+
+      function finalizeBooking(e) {
+        e.preventDefault();
+        document.getElementById('step3').style.display = 'none';
+        document.getElementById('success-screen').style.display = 'block';
+        
+        // Update progress to done
+        document.getElementById('p-step3').classList.add('completed');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us – Sharrow Bay Hotel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+    <link rel="icon" href="/images/logo-gold-200.png" />
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container topbar">
+
+    <a href="index.html" class="logo">
+      <img src="images/logo-gold-200.png" alt="Sharrow Bay Hotel logo">
+      <div class="logo-text">
+        <span class="logo-title">Sharrow Bay</span>
+        <span class="logo-subtitle">Hotel & Lakeside Restaurant</span>
+      </div>
+    </a>
+
+  <nav>
+ 
+  <a class="nav-link" href="#home">Home</a>
+  <a class="nav-link" href="#rooms">Rooms</a>
+
+  <a class="nav-link" href="#events">Events</a>
+  <a class="nav-link" href="about.html">About</a>
+ <div class="dropdown">
+    <a class="nav-link">MORE ▾</a>
+    <div class="dropdown-menu">
+      <a href="#dining">Dining</a>
+      <a href="#gallery">Gallery</a>
+        <a class="nav-link" href="#virtual-tour">Virtual Tour</a>
+
+    </div>
+  </div>
+  <a class="nav-cta" href="booking.html">Book Now</a>
+</nav>
+
+    <button class="mobile-toggle btn" onclick="toggleMobileNav()">Menu</button>
+  </div>
+</header>
+
+
+<!-- ABOUT SECTION -->
+<section class="container fade-up" style="padding:80px 0;">
+  <div style="
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap:40px;
+    align-items:center;
+    margin-top: 40px;
+  ">
+
+    <!-- IMAGE -->
+    <div style="
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    ">
+      <img src="images/Owners.jpg" alt="Owners of Sharrow Bay" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+
+    <!-- CONTENT -->
+    <div>
+      <h1 style="font-family:var(--font-heading); font-size:44px; margin-bottom:10px;">
+        Our Story
+      </h1>
+
+      <p style="color:var(--text-muted); line-height:1.7; margin-bottom:20px;">
+        For over 70 years, Sharrow Bay has welcomed guests to one of the most serene
+        corners of the Lake District. Set along Ullswater’s timeless shores, our
+        historic country house blends English heritage with modern understated luxury.
+      </p>
+
+      <p style="color:var(--text-muted); line-height:1.7; margin-bottom:30px;">
+        From elegant suites to award-winning dining, our philosophy remains the same:
+        offer warm hospitality, extraordinary culinary experiences, and unforgettable
+        views—ensuring every stay becomes a cherished memory.
+      </p>
+
+      <button class="btn primary" onclick="window.location.href='booking.html'">
+        Book Your Stay
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- AESTHETIC IMAGE & QUOTE -->
+<!-- TIMELESS ELEGANCE SECTION -->
+<!-- TIMELESS ELEGANCE SECTION -->
+<section class="container fade-up" style="padding: 60px 0;">
+  <div style="
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  ">
+    
+    <!-- CONTENT (LEFT) -->
+    <div>
+      <h2 style="font-family: var(--font-heading); font-size: 40px; margin-bottom: 20px; color: var(--primary);">
+        Timeless Elegance
+      </h2>
+
+      <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; font-size: 16px;">
+        There is a quiet beauty in the history that surrounds us. Sharrow Bay is more than just a hotel; 
+        it is a living testament to a golden era of hospitality. Every stone, every view, and every 
+        moment shared here is steeped in a tradition of grace that has endured for generations.
+      </p>
+
+      <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; font-size: 16px;">
+        We invite you to pause, breathe, and immerse yourself in an atmosphere where time seems to slow down. 
+        Here, the simple pleasures of life—a stunning view, a glass of fine wine, a warm welcome—are celebrated 
+        with an elegance that never goes out of style.
+      </p>
+
+      <blockquote style="
+        border-left: 3px solid var(--accent);
+        padding-left: 20px;
+        margin: 0 0 20px 0;
+        font-family: var(--font-heading);
+        font-size: 22px;
+        font-style: italic;
+        color: var(--primary);
+      ">
+        "Simplicity is the keynote of all true elegance."
+      </blockquote>
+      <cite style="display:block; margin-top:10px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--accent);">
+        — Coco Chanel
+      </cite>
+    </div>
+
+    <!-- IMAGE (RIGHT) -->
+    <div style="
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    ">
+      <img src="images/blackWhite.jpg" alt="Timeless Elegance at Sharrow Bay" style="width: 100%; height: 350px; object-fit: cover; transform: scale(1.15); display: block;">
+    </div>
+
+  </div>
+</section>
+
+
+<!-- MISSION STATEMENT -->
+<section style="background:#faf9f6; padding:70px 0;">
+  <div class="container fade-up" style="text-align:center; max-width:800px;">
+    <h2 style="font-family:var(--font-heading); font-size:36px; margin-bottom:15px;">
+      Our Philosophy
+    </h2>
+    <p style="color:var(--text-muted); font-size:17px; line-height:1.8;">
+      We believe true luxury is found in details—personalized service, warm hospitality,
+      and experiences that stay with you long after your departure. Whether you're here
+      for a peaceful retreat, romantic escape, or fine dining, we welcome you to feel at home.
+    </p>
+  </div>
+</section>
+
+
+<section id="book" style="background: #111; color: white">
+        <div class="container">
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 60px">
+            <div class="fade-up">
+              <h2 style="color: white">Contact Us</h2>
+              <p style="color: #999; margin-bottom: 30px">
+                We are here to help you plan your perfect stay.
+              </p>
+
+              <div style="margin-bottom: 20px">
+                <strong
+                  style="
+                    display: block;
+                    color: var(--accent);
+                    margin-bottom: 5px;
+                  "
+                  >Address</strong
+                >
+                <span style="color: #ccc"
+                  >Sharrow Bay, Ullswater, Penrith,<br />Cumbria, CA10 2LZ,
+                  United Kingdom</span
+                >
+              </div>
+
+              <div style="margin-bottom: 20px">
+                <strong
+                  style="
+                    display: block;
+                    color: var(--accent);
+                    margin-bottom: 5px;
+                  "
+                  >Contact</strong
+                >
+                <div style="color: #ccc">
+                  Phone: <a href="tel:+441768486301">+44 17684 86301</a><br />
+                  Email:
+                  <a href="mailto:info@sharrowbay.co.uk"
+                    >info@sharrowbay.co.uk</a
+                  >
+                </div>
+              </div>
+
+              <div style="margin-top: 40px">
+                <strong
+                  style="
+                    display: block;
+                    color: var(--accent);
+                    margin-bottom: 15px;
+                  "
+                  >Follow Us</strong
+                >
+                <div class="socials" style="display: flex; gap: 15px">
+                  <a
+                    href="#"
+                    style="
+                      color: white;
+                      border: 1px solid #333;
+                      padding: 10px 20px;
+                      border-radius: 4px;
+                    "
+                    >Facebook</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      color: white;
+                      border: 1px solid #333;
+                      padding: 10px 20px;
+                      border-radius: 4px;
+                    "
+                    >Instagram</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      color: white;
+                      border: 1px solid #333;
+                      padding: 10px 20px;
+                      border-radius: 4px;
+                    "
+                    >Twitter</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="fade-up">
+              <h3 style="color: white; margin-bottom: 20px">Send a Message</h3>
+              <form onsubmit="submitContact(event)" class="book-form">
+                <input
+                  class="input"
+                  id="cname"
+                  placeholder="Your Name"
+                  style="background: #222; border-color: #333; color: white"
+                  required
+                />
+                <input
+                  class="input"
+                  id="cemail"
+                  placeholder="Email Address"
+                  style="background: #222; border-color: #333; color: white"
+                  required
+                />
+                <textarea
+                  class="input"
+                  id="cmessage"
+                  placeholder="How can we help?"
+                  rows="4"
+                  style="background: #222; border-color: #333; color: white"
+                  required
+                ></textarea>
+                <button class="btn primary" type="submit">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-left">
+          <h4>Sharrow Bay Hotel</h4>
+          <p class="footer-tagline">
+            The first luxury country house hotel in England.
+          </p>
+          <p class="footer-copy">
+            © 2025 Sharrow Bay Hotel — All Rights Reserved.
+          </p>
+        </div>
+
+        <div class="footer-right">
+          <a href="#rooms">Rooms</a>
+          <a href="#dining">Dining</a>
+          <a href="#events">Events</a>
+          <a href="#gallery">Gallery</a>
+        </div>
+      </div>
+    </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

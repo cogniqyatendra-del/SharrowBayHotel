@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Sharrow Bay Hotel & Lakeside Restaurant | Luxury Lake District Hotel
+    </title>
+    <meta
+      name="description"
+      content="Experience the historic Sharrow Bay Hotel on the shores of Ullswater. Luxury rooms, award-winning dining, and the home of sticky toffee pudding. Book your stay in the Lake District."
+    />
+    <meta
+      name="keywords"
+      content="Sharrow Bay, Ullswater Hotel, Lake District Luxury Hotel, Lakeside Restaurant, Afternoon Tea Lake District, Sticky Toffee Pudding"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.sharrowbay.co.uk/" />
+    <meta
+      property="og:title"
+      content="Sharrow Bay Hotel & Lakeside Restaurant | Luxury Lake District Hotel"
+    />
+    <meta
+      property="og:description"
+      content="Experience the historic Sharrow Bay Hotel on the shores of Ullswater. Luxury rooms, award-winning dining, and the home of sticky toffee pudding."
+    />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=60"
+    />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.sharrowbay.co.uk/" />
+    <meta
+      property="twitter:title"
+      content="Sharrow Bay Hotel & Lakeside Restaurant | Luxury Lake District Hotel"
+    />
+    <meta
+      property="twitter:description"
+      content="Experience the historic Sharrow Bay Hotel on the shores of Ullswater. Luxury rooms, award-winning dining, and the home of sticky toffee pudding."
+    />
+    <meta
+      property="twitter:image"
+      content="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=60"
+    />
+
+    <link rel="icon" href="/images/logo-gold-200.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="reservation-modal.css" />
+    <link rel="stylesheet" href="gallery-enhanced.css" />
+    <!-- NOTE: removed 360 viewer libraries (three/panolens/photo-sphere) since we are using Google Maps now -->
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "Sharrow Bay Hotel",
+        "image": "https://images.unsplash.com/photo-1503264116251-35a269479413",
+        "description": "Historic country house hotel on the shores of Ullswater.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sharrow Bay",
+          "addressLocality": "Ullswater, Penrith",
+          "addressRegion": "Cumbria",
+          "postalCode": "CA10 2LZ",
+          "addressCountry": "UK"
+        },
+        "telephone": "+441768486301",
+        "priceRange": "£120 - £400",
+        "starRating": {
+          "@type": "Rating",
+          "ratingValue": "4.5"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container topbar">
+        <a href="#" class="logo">
+          <img src="images/logo-gold-200.png" alt="Sharrow Bay Hotel logo" />
+          <div class="logo-text">
+            <span class="logo-title">Sharrow Bay</span>
+            <span class="logo-subtitle">Hotel & Lakeside Restaurant</span>
+          </div>
+        </a>
+
+       <nav>
+ 
+  <a class="nav-link" href="#home">Home</a>
+  <a class="nav-link" href="#rooms">Rooms</a>
+
+  <a class="nav-link" href="#events">Events</a>
+  <a class="nav-link" href="about.html">About</a>
+ <div class="dropdown">
+    <a class="nav-link">MORE ▾</a>
+    <div class="dropdown-menu">
+      <a href="#dining">Dining</a>
+      <a href="#gallery">Gallery</a>
+        <a class="nav-link" href="#virtual-tour">Virtual Tour</a>
+
+    </div>
+  </div>
+  <a class="nav-cta" href="booking.html">Book Now</a>
+</nav>
+
+
+        <button
+          class="mobile-toggle btn"
+          aria-expanded="false"
+          onclick="toggleMobileNav()"
+        >
+          Menu
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <div class="hero-text fade-up">
+            <span class="eyebrow">Historic • Lakeside • Luxury</span>
+            <h1>Experience the Legend of Sharrow Bay</h1>
+            <p style="color:#fff">
+              The original country house hotel on the shores of Ullswater.
+              Immerse yourself in history, award-winning cuisine, and
+              breathtaking views.
+            </p>
+            <div class="quick-actions">
+              <a
+                class="btn primary"
+                href="booking.html"
+              >
+                Book Your Stay
+              </a>
+              <button class="btn" onclick="openReservationModal()">Reserve a Table</button>
+            </div>
+          </div>
+
+          <div class="booking-widget fade-up">
+            <strong>Check Availability</strong>
+            <form
+              id="bookingForm"
+              class="book-form"
+              onsubmit="submitBooking(event)"
+            >
+              <div class="form-group">
+                <label>Check-in</label>
+                <input class="input" type="date" id="checkin" required />
+              </div>
+              <div class="form-group">
+                <label>Check-out</label>
+                <input class="input" type="date" id="checkout" required />
+              </div>
+              <div class="form-group">
+                <label>Guests</label>
+                <select id="guests" class="input">
+                  <option>2 Guests</option>
+                  <option>1 Guest</option>
+                  <option>3 Guests</option>
+                  <option>Family (2+2)</option>
+                </select>
+              </div>
+              <button
+                class="btn primary"
+                type="submit"
+                style="width: 100%; margin-top: 10px"
+              >
+                Search Rooms
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- <div class="section-divider"></div> -->
+
+      <!-- ROOMS -->
+      <section id="rooms" class="container rooms-wrapper">
+        <div class="section-header fade-up">
+          <h2>Luxury Accommodation</h2>
+          <p>Wake up to timeless elegance and breathtaking lakeside views.</p>
+        </div>
+
+        <div class="rooms-grid-new">
+          <div class="room-card fade-up">
+            <div class="room-img">
+              <img src="images/riverside_double.png" alt="Classic Double Room" />
+            </div>
+            <div class="room-info">
+              <h3>Classic Double</h3>
+              <p>
+                Warm, intimate rooms featuring period décor and views of the
+                gardens.
+              </p><br>
+              <div class="room-bottom">
+                <span class="price">From £180</span>
+                <a href="booking.html"> <button class="btn primary">View Details</button></a>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="room-card fade-up">
+            <div class="room-img">
+              <img src="images/RiverView.jpg" alt="Superior Lakeside Room" />
+            </div>
+            <div class="room-info">
+              <h3>Superior Lakeside</h3>
+              <p>
+                Spacious rooms with lounges and panoramic lake views from your
+                window.
+              </p>
+              <div class="room-bottom">
+                <span class="price">From £260</span>
+                <a href="booking.html"> <button class="btn primary">View Details</button></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="room-card fade-up">
+            <div class="room-img">
+              <img src="images/Lake-View-Villa-Room.jpg" alt="Premier Suite" />
+            </div>
+            <div class="room-info">
+              <h3>Premier Suite</h3>
+              <p>
+                The epitome of luxury featuring a private lounge and balcony
+                overlooking Ullswater.
+              </p>
+              <div class="room-bottom">
+                <span class="price">From £380</span>
+                <a href="booking.html"> <button class="btn primary">View Details</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- VIRTUAL TOUR -->
+<section id="virtual-tour" class="virtual-tour-premium fade-up">
+  <div class="container vt-box">
+
+    <div class="vt-bg-premium"></div>
+
+    <div class="vt-content">
+      <div class="vt-icon">360°</div>
+
+      <h2>Explore Sharrow Bay in <span>Virtual Reality</span></h2>
+      <p>
+        Step inside our historic hotel and experience the beauty of Ullswater through an immersive virtual walkthrough.
+      </p>
+
+      <button class="btn primary vt-start-btn">Start Virtual Tour</button>
+    </div>
+
+  </div>
+</section>
+
+
+      <div class="section-divider"></div>
+
+      <!-- DINING -->
+      <section id="dining" class="container dining-new">
+        <div class="dining-wrapper fade-up">
+          <div class="dining-img">
+            <img src="images/dining.png" alt="Fine Dining at Sharrow Bay" />
+          </div>
+
+          <div class="dining-content">
+            <h2>Award-Winning Dining</h2>
+            <p class="sub">Home of the original Sticky Toffee Pudding.</p>
+
+            <p class="desc">
+              Enjoy a refined culinary experience inspired by the Lake
+              District’s finest produce. Our chefs craft seasonal dishes paired
+              with panoramic lake views—perfect for breakfast, lunch, afternoon
+              tea, or a romantic dinner.
+            </p>
+
+            <div class="dining-highlights">
+              <div class="highlight">
+                <h3>Afternoon Tea</h3>
+                <p>Freshly baked delights with Ullswater views.</p>
+              </div>
+
+              <div class="highlight">
+                <h3>Private Dining</h3>
+                <p>Celebrate your special moments in style.</p>
+              </div>
+            </div>
+
+            <button class="btn primary" onclick="openReservationModal()">Reserve a Table</button>
+          </div>
+        </div>
+      </section>
+      <div class="section-divider"></div>
+
+      <!-- GALLERY -->
+      <section id="gallery" class="gallery-section">
+        <div class="container">
+          <div class="gallery-head">
+            <h2>Our Beautiful Moments</h2>
+            <p>Capturing the timeless charm and lakeside luxury of Sharrow Bay.</p>
+            <div class="gold-line"></div>
+          </div>
+
+          <div class="gallery-grid">
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/People.jpg" alt="" />
+            </div>
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/RiverView.jpg" alt="" />
+            </div>
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/oldHouse.jpg" alt="" />
+            </div>
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/gallery-3.jpg" alt="" />
+            </div>
+
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/gallery-1.jpg" alt="New Gallery Image 1" />
+            </div>
+
+            <div class="gallery-item fade-up" onclick="openModal(this.querySelector('img').src)">
+              <img src="images/gallery-2.jpg" alt="New Gallery Image 2" />
+            </div>
+          </div>
+
+          <section class="gallery-info container fade-up">
+            <h2 class="gi-title">Experience Sharrow Bay</h2>
+            <p class="gi-desc">
+              From timeless heritage to breathtaking lakeside views — every corner of Sharrow Bay blends elegance, history, and serenity. Explore the ambiance that makes our hotel unforgettable.
+            </p>
+          </section>
+<!-- 
+          <div class="center-btn">
+            <a href="#fullgallery" class="btn primary">View Full Gallery</a>
+          </div> -->
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- TESTIMONIALS -->
+      <section id="testimonials" class="testimonials-section" aria-label="Guest stories and testimonials">
+        <div class="container">
+          <div class="section-header">
+            <h2>Guest Stories</h2>
+            <p>Real memories from guests who enjoyed their stay by Ullswater.</p>
+            <button class="btn primary" onclick="openAddReviewModal()" style="margin-top: 16px;">✨ Add Your Review</button>
+          </div>
+
+          <div class="reviews-grid" id="reviewsGrid">
+            <!-- Review 1 -->
+            <article class="review-card">
+              <img src="images/room1.jpg" alt="Luxury room view" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"A truly magical stay — stunning views, warm service, and dinner was unforgettable. The attention to detail made our anniversary perfect."</p>
+                <div class="review-author">
+                  <img src="images/reviewer1.jpg" alt="Anna Walker" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=1'">
+                  <div class="review-meta">
+                    <strong>Anna Walker</strong>
+                    <span>TripAdvisor</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review 2 -->
+            <article class="review-card">
+              <img src="images/room2.jpg" alt="Cozy room interior" onerror="this.src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"The afternoon tea is a must. Cosy room & beautiful lake walk made it special. We'll definitely return for another visit."</p>
+                <div class="review-author">
+                  <img src="images/reviewer2.jpg" alt="Jay Patel" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=12'">
+                  <div class="review-meta">
+                    <strong>Jay Patel</strong>
+                    <span>Google Reviews</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review 3 -->
+            <article class="review-card">
+              <img src="images/room3.jpg" alt="Suite with balcony" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Our suite balcony overlooked Ullswater — absolutely breathtaking experience. The staff went above and beyond."</p>
+                <div class="review-author">
+                  <img src="images/reviewer3.jpg" alt="R. Singh" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=33'">
+                  <div class="review-meta">
+                    <strong>R. Singh</strong>
+                    <span>Instagram</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review 4 (Hidden initially) -->
+            <article class="review-card hidden">
+              <img src="images/room4.jpg" alt="Lakeside room" onerror="this.src='https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Exceptional hospitality and cuisine. The lakeside setting is simply stunning. A perfect retreat from city life."</p>
+                <div class="review-author">
+                  <img src="images/reviewer1.jpg" alt="Emma Thompson" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=5'">
+                  <div class="review-meta">
+                    <strong>Emma Thompson</strong>
+                    <span>TripAdvisor</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review 5 (Hidden initially) -->
+            <article class="review-card hidden">
+              <img src="images/room5.jpg" alt="Elegant bedroom" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"Beautiful location with excellent service. The rooms are luxurious and the food is outstanding. Highly recommended!"</p>
+                <div class="review-author">
+                  <img src="images/reviewer2.jpg" alt="Michael Chen" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=14'">
+                  <div class="review-meta">
+                    <strong>Michael Chen</strong>
+                    <span>Google Reviews</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review 6 (Hidden initially) -->
+            <article class="review-card hidden">
+              <img src="images/room6.jpg" alt="Panoramic view room" onerror="this.src='https://images.unsplash.com/photo-1591088398332-8a7791972843?w=600&h=400&fit=crop'">
+              <div class="review-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"A hidden gem in the Lake District. The views are spectacular and the staff made us feel like family. Can't wait to return!"</p>
+                <div class="review-author">
+                  <img src="images/reviewer3.jpg" alt="Sarah Williams" class="review-avatar" onerror="this.src='https://i.pravatar.cc/150?img=20'">
+                  <div class="review-meta">
+                    <strong>Sarah Williams</strong>
+                    <span>Instagram</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="reviews-navigation">
+            <button id="prevReviews" class="review-nav-btn">
+              <span>‹</span> Previous
+            </button>
+            <div class="review-dots" id="reviewDots"></div>
+            <button id="nextReviews" class="review-nav-btn">
+              Next <span>›</span>
+            </button>
+          </div>
+
+          <div class="reviews-badges">
+            <h3>Trusted by Guests</h3>
+            <div class="badge-row">
+              <img src="images/tripadvisor-badge.png" alt="TripAdvisor">
+              <img src="images/google-badge.png" alt="Google">
+              <img src="images/instagram-badge.png" alt="Instagram">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- EVENTS SECTION -->
+      <section id="events" class="events-section fade-up">
+        <div class="container">
+          <div class="section-header">
+            <h2>Upcoming Events</h2>
+            <p>Experience unforgettable moments at Sharrow Bay — curated for elegance, joy, and celebration.</p>
+          </div>
+
+          <div class="events-grid">
+            <div class="event-card">
+              <div class="event-img">
+                <img src="images/event-1.jpg" alt="Lakeside Wine Evening" />
+              </div>
+              <div class="event-content">
+                <h3>Lakeside Wine Evening</h3>
+                <p>Join us for a refined evening featuring award-winning wines, live classical music, and lakeside sunset views.</p>
+                <span class="event-date">March 15, 2025</span>
+<button class="btn primary reserve-seat-btn">Reserve a Seat</button>
+              </div>
+            </div>
+
+            <div class="event-card">
+              <div class="event-img">
+                <img src="images/event-2.jpg" alt="Garden Tea Festival" />
+              </div>
+              <div class="event-content">
+                <h3>Garden Tea Festival</h3>
+                <p>Fresh bakes, floral ambience, and premium teas served in our historic garden courtyard.</p>
+                <span class="event-date">April 8, 2025</span>
+<button class="btn primary book-now-btn">Book Now</button>
+              </div>
+            </div>
+
+            <div class="event-card">
+              <div class="event-img">
+                <img src="images/event-3.jpg" alt="Chef’s Table Experience" />
+              </div>
+              <div class="event-content">
+                <h3>Chef’s Table Experience</h3>
+                <p>An exclusive six-course tasting menu crafted by our culinary masters — limited seats only.</p>
+                <span class="event-date">Every Friday</span>
+<button class="btn primary join-experience-btn">Join Experience</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="book" style="background: #111; color: white">
+        <div class="container">
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 60px">
+            <div class="fade-up">
+              <h2 style="color: white">Contact Us</h2>
+              <p style="color: #999; margin-bottom: 30px">We are here to help you plan your perfect stay.</p>
+
+              <div style="margin-bottom: 20px">
+                <strong style="display: block; color: var(--accent); margin-bottom: 5px;">Address</strong>
+                <span style="color: #ccc">Sharrow Bay, Ullswater, Penrith,<br/>Cumbria, CA10 2LZ, United Kingdom</span>
+              </div>
+
+              <div style="margin-bottom: 20px">
+                <strong style="display: block; color: var(--accent); margin-bottom: 5px;">Contact</strong>
+                <div style="color: #ccc">
+                  Phone: <a href="tel:+441768486301">+44 17684 86301</a><br/>
+                  Email: <a href="mailto:info@sharrowbay.co.uk">info@sharrowbay.co.uk</a>
+                </div>
+              </div>
+
+              <div style="margin-top: 40px">
+                <strong style="display: block; color: var(--accent); margin-bottom: 15px;">Follow Us</strong>
+                <div class="socials" style="display: flex; gap: 15px">
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Facebook</a>
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Instagram</a>
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Twitter</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="fade-up">
+              <h3 style="color: white; margin-bottom: 20px">Send a Message</h3>
+              <form onsubmit="submitContact(event)" class="book-form">
+                <input class="input" id="cname" placeholder="Your Name" style="background: #222; border-color: #333; color: white" required />
+                <input class="input" id="cemail" placeholder="Email Address" style="background: #222; border-color: #333; color: white" required />
+                <textarea class="input" id="cmessage" placeholder="How can we help?" rows="4" style="background: #222; border-color: #333; color: white" required></textarea>
+                <button class="btn primary" type="submit">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-left">
+          <h4>Sharrow Bay Hotel</h4>
+          <p class="footer-tagline">The first luxury country house hotel in England.</p>
+          <p class="footer-copy">© 2025 Sharrow Bay Hotel — All Rights Reserved.</p>
+        </div>
+
+        <div class="footer-right">
+          <a href="#rooms">Rooms</a>
+          <a href="#dining">Dining</a>
+          <a href="#events">Events</a>
+          <a href="#gallery">Gallery</a>
+             <a href="#testimonials">Review</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- GALLERY MODAL -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+      <img id="modalImg" src="" />
+    </div>
+
+    <!-- REVIEW MODAL -->
+    <div class="review-modal-overlay" id="reviewModal">
+      <div class="review-modal">
+        <button class="close-modal">&times;</button>
+
+        <h2 class="modal-title">Share Your Experience</h2>
+        <p class="modal-subtitle">We appreciate your feedback.</p>
+
+        <div class="star-rating">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+
+        <input type="text" class="review-input" placeholder="Your Name" />
+        <input type="email" class="review-input" placeholder="Your Email (optional)" />
+        <textarea class="review-textarea" placeholder="Write your review..."></textarea>
+
+        <button class="btn primary submit-review-btn">Submit Review</button>
+      </div>
+    </div>
+
+    <!-- VIRTUAL TOUR (Google Maps embed inside modal) -->
+<div id="tourModal" class="review-modal-overlay" aria-hidden="true">
+  <div class="review-modal tour-modal-box">
+
+    <!-- Close Button -->
+    <button class="tour-close close-modal" aria-label="Close tour">&times;</button>
+
+    <!-- Heading -->
+    <h2 class="modal-title">Virtual Tour</h2>
+    <p class="modal-subtitle">Explore our hotel in immersive 360°</p>
+
+    <!-- GOOGLE MAP WRAPPER with Premium Gold Glow -->
+    <div class="tour-map-frame">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2311.7982480160163!2d-2.846408923300556!3d54.589928972675935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487ce5710030c0c1%3A0x65eed713a0bf4b8f!2sSharrow%20Bay!5e0!3m2!1sen!2sin!4v1764324283869!5m2!1sen!2sin"
+        width="100%" height="480" style="border:0;" allowfullscreen=""
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+    <!-- main external script (unchanged, keeps existing site behavior) -->
+    <!-- <script src="script.js"></script> -->
+
+    <!-- Inline modal open/close logic for Virtual Tour (Google Maps) -->
+    <script>
+      (function () {
+        // elements
+        const tourBtn = document.querySelector('.vt-start-btn');
+        const tourModal = document.getElementById('tourModal');
+        const tourClose = tourModal ? tourModal.querySelector('.tour-close') : null;
+
+        // safety checks
+        if (!tourBtn || !tourModal) {
+          // nothing to wire up
+          console.warn('Virtual tour button or modal not found.');
+        } else {
+          // open modal
+          tourBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            tourModal.style.display = 'flex';
+            tourModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // prevent background scroll while modal open
+          });
+
+          // close via close button
+          if (tourClose) {
+            tourClose.addEventListener('click', function () {
+              tourModal.style.display = 'none';
+              tourModal.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            });
+          }
+
+          // close when clicking the overlay (outside the modal box)
+          tourModal.addEventListener('click', function (ev) {
+            if (ev.target === tourModal) {
+              tourModal.style.display = 'none';
+              tourModal.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            }
+          });
+
+          // close on Esc
+          document.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Escape' && tourModal.style.display === 'flex') {
+              tourModal.style.display = 'none';
+              tourModal.setAttribute('aria-hidden', 'true');
+              document.body.style.overflow = '';
+            }
+          });
+        }
+      })();
+    </script>
+
+    <!-- small helpers for gallery/modal that your script.js expects (if not present already) -->
+    <script>
+      // gallery modal helpers (safe no-op if functions already defined in script.js)
+      if (typeof openModal !== 'function') {
+        window.openModal = function (src) {
+          const modal = document.getElementById('modal');
+          const modalImg = document.getElementById('modalImg');
+          if (modal && modalImg) {
+            modalImg.src = src;
+            modal.classList.add('open');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+          }
+        };
+      }
+
+      if (typeof closeModal !== 'function') {
+        window.closeModal = function (e) {
+          // allows clicking outside (target id modal) or direct call
+          const modal = document.getElementById('modal');
+          if (!e || e.target === modal) {
+            if (modal) {
+              modal.classList.remove('open');
+              modal.style.display = 'none';
+              document.body.style.overflow = '';
+            }
+          }
+        };
+
+        // close gallery modal on ESC
+        document.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape') {
+            const modal = document.getElementById('modal');
+            if (modal && modal.classList.contains('open')) {
+              modal.classList.remove('open');
+              modal.style.display = 'none';
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      }
+    </script>
+    <!-- TABLE RESERVATION MODAL -->
+    <div class="reservation-modal-overlay" id="reservationModal">
+      <div class="reservation-modal">
+        <button class="close-modal" onclick="closeReservationModal()">&times;</button>
+        
+        <h2 class="modal-title">Reserve a Table</h2>
+        <p class="modal-subtitle">Experience award-winning dining at Sharrow Bay</p>
+        
+        <form class="reservation-form" onsubmit="submitReservation(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" class="input" id="reservationDate" required />
+            </div>
+            <div class="form-group">
+              <label>Time</label>
+              <select class="input" id="reservationTime" required>
+                <option value="">Select time</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="12:30">12:30 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="13:30">1:30 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="18:30">6:30 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="19:30">7:30 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="20:30">8:30 PM</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Guests</label>
+              <select class="input" id="reservationGuests" required>
+                <option value="">Number of guests</option>
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+                <option value="6">6 Guests</option>
+                <option value="7+">7+ Guests</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Occasion (Optional)</label>
+              <select class="input" id="reservationOccasion">
+                <option value="">Select occasion</option>
+                <option value="birthday">Birthday</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="business">Business Dinner</option>
+                <option value="celebration">Celebration</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="input" id="reservationName" placeholder="Your full name" required />
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="input" id="reservationEmail" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" class="input" id="reservationPhone" placeholder="+44 123 456 7890" required />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Special Requests (Optional)</label>
+            <textarea class="input" id="reservationNotes" rows="3" placeholder="Any dietary requirements or special requests..."></textarea>
+          </div>
+          
+          <button class="btn primary" type="submit" style="width: 100%; margin-top: 10px;">
+            Confirm Reservation
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- TABLE RESERVATION SUCCESS MODAL -->
+    <div class="reservation-modal-overlay" id="reservationSuccessModal">
+      <div class="reservation-success-modal">
+        <div class="success-icon-wrapper">
+          <div class="success-checkmark">✓</div>
+        </div>
+        
+        <h2 class="success-title">Reservation Confirmed!</h2>
+        <p class="success-subtitle">Thank you for choosing Sharrow Bay</p>
+        
+        <div class="reservation-details">
+          <div class="detail-row">
+            <span class="detail-label">Guest Name</span>
+            <span class="detail-value" id="confirmName"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Date</span>
+            <span class="detail-value" id="confirmDate"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Time</span>
+            <span class="detail-value" id="confirmTime"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Guests</span>
+            <span class="detail-value" id="confirmGuests"></span>
+          </div>
+          <div class="detail-row" id="confirmOccasionRow" style="display: none;">
+            <span class="detail-label">Occasion</span>
+            <span class="detail-value" id="confirmOccasion"></span>
+          </div>
+        </div>
+        
+        <p class="success-message">
+          We will send a confirmation email to <strong id="confirmEmail"></strong> shortly. 
+          Our team will contact you at <strong id="confirmPhone"></strong> to finalize your reservation.
+        </p>
+        
+        <button class="btn primary" onclick="closeReservationSuccessModal()" style="width: 100%; margin-top: 20px;">
+          Perfect, Thank You!
+        </button>
+      </div>
+    </div>
+
+    <!-- ADD REVIEW MODAL -->
+    <div class="reservation-modal-overlay" id="addReviewModal">
+      <div class="reservation-modal" style="max-width: 600px;">
+        <button class="close-modal" onclick="closeAddReviewModal()">&times;</button>
+        
+        <h2 class="modal-title">Share Your Experience</h2>
+        <p class="modal-subtitle">Help others discover Sharrow Bay</p>
+        
+        <form class="reservation-form" onsubmit="submitReview(event)">
+          <!-- Star Rating -->
+          <div class="form-group">
+            <label>Your Rating</label>
+            <div class="star-rating-input" id="starRating">
+              <span class="star" data-rating="1">★</span>
+              <span class="star" data-rating="2">★</span>
+              <span class="star" data-rating="3">★</span>
+              <span class="star" data-rating="4">★</span>
+              <span class="star" data-rating="5">★</span>
+            </div>
+          </div>
+
+          <!-- Name and Email -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" class="input" id="reviewName" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+              <label>Email (Optional)</label>
+              <input type="email" class="input" id="reviewEmail" placeholder="john@example.com" />
+            </div>
+          </div>
+
+          <!-- Review Text -->
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea class="input" id="reviewText" rows="4" placeholder="Share your experience at Sharrow Bay..." required></textarea>
+          </div>
+
+          <!-- Avatar Selection -->
+          <div class="form-group">
+            <label>Choose Your Avatar</label>
+            <div class="avatar-selector" id="avatarSelector">
+              <div class="avatar-option" data-avatar="1">
+                <img src="https://i.pravatar.cc/150?img=1" alt="Avatar 1">
+              </div>
+              <div class="avatar-option" data-avatar="5">
+                <img src="https://i.pravatar.cc/150?img=5" alt="Avatar 2">
+              </div>
+              <div class="avatar-option" data-avatar="12">
+                <img src="https://i.pravatar.cc/150?img=12" alt="Avatar 3">
+              </div>
+              <div class="avatar-option" data-avatar="14">
+                <img src="https://i.pravatar.cc/150?img=14" alt="Avatar 4">
+              </div>
+              <div class="avatar-option" data-avatar="20">
+                <img src="https://i.pravatar.cc/150?img=20" alt="Avatar 5">
+              </div>
+              <div class="avatar-option" data-avatar="33">
+                <img src="https://i.pravatar.cc/150?img=33" alt="Avatar 6">
+              </div>
+            </div>
+          </div>
+
+          <button class="btn primary" type="submit" style="width: 100%; margin-top: 10px;">
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- AI CHATBOT FLOATING BUTTON -->
+<div id="aiChatbotBtn">
+  💬
+</div>
+
+
+
+<!-- AI CHATBOT POPUP -->
+<div id="aiChatPopup">
+  <div class="ai-chat-header">
+    <div class="header-info">
+      <img src="images/logo-gold-200.png" alt="Bot Icon" class="bot-icon" />
+      <div class="header-text">
+        <span class="bot-name">Sharrow Bay Assistant</span>
+        <span class="bot-status">We're online</span>
+      </div>
+    </div>
+    <button id="closeAiChat">×</button>
+  </div>
+
+  <div class="ai-chat-body" id="aiChatBody">
+    <div class="ai-msg bot">
+      👋 Hi! I'm the Sharrow Bay assistant. <br>
+      Ask me anything about our rooms, dining, or events.
+    </div>
+  </div>
+
+  <div class="ai-suggestions">
+    <button class="suggestion-chip">Room Rates</button>
+    <button class="suggestion-chip">Dining Menu</button>
+    <button class="suggestion-chip">Events</button>
+    <button class="suggestion-chip">Location</button>
+  </div>
+
+  <div class="ai-chat-footer">
+    <div class="ai-chat-input-box">
+      <input id="aiChatInput" type="text" placeholder="Type a question..." />
+      <button id="sendAiMsg">➤</button>
+    </div>
+    <button id="clearChatBtn">Clear chat</button>
+  </div>
+</div>
+
+<!-- JOIN EVENT POPUP -->
+<div id="eventJoinModal" class="event-join-overlay" aria-hidden="true">
+  <div class="event-join-modal shimmer-border">
+
+    <button class="event-join-close">&times;</button>
+
+    <h2 class="event-join-title">Join Event</h2>
+    <p class="event-join-subtitle">Reserve your place for our exclusive lakefront experiences</p>
+
+    <form id="eventJoinForm" class="event-join-form">
+
+      <!-- Name -->
+      <input type="text" id="eventName" class="input join-field" placeholder="Your Name" required>
+
+      <!-- Email -->
+      <input type="email" id="eventEmail" class="input join-field" placeholder="Email Address" required>
+
+      <!-- Phone -->
+      <input type="tel" id="eventPhone" class="input join-field" placeholder="Phone Number" required>
+
+      <!-- Event Type Dropdown -->
+      <select id="eventType" class="input join-field" required>
+        <option value="">Select Event Type</option>
+        <option value="Luxury Dining Night">Luxury Dining Night</option>
+        <option value="Lakefront Wine Experience">Lakefront Wine Experience</option>
+        <option value="Afternoon Tea by the Water">Afternoon Tea by the Water</option>
+        <option value="Private Celebration">Private Celebration</option>
+      </select>
+
+      <!-- Event Date -->
+      <label class="event-date-label">Choose Event Date</label>
+      <input type="date" id="eventDate" class="input join-field" required>
+
+      <!-- Notes -->
+      <textarea id="eventNotes" class="input join-textarea" placeholder="Special requests (optional)"></textarea>
+
+      <button type="submit" class="btn primary event-join-submit">
+        Confirm Reservation
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- SUCCESS POPUP -->
+<div id="eventSuccessModal" class="event-success-overlay">
+  <div class="event-success-box">
+    <div class="success-icon">✔</div>
+    <h3>Your Reservation is Confirmed!</h3>
+    <p>Thank you for joining us — we will email you full event details shortly.</p>
+    <button id="successCloseBtn" class="btn primary" style="margin-top:12px;">Close</button>
+  </div>
+</div>
+
+
+<script src="script.js"></script>
+<script src="review-carousel.js"></script>
+<script src="add-review.js"></script>
+
+</body>
+</html>
