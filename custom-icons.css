@@ -1,0 +1,8 @@
+/* Refined Section Icons */
+.section-icon {
+    color: var(--accent);
+    margin-right: 12px !important;
+    font-size: 0.75em !important;
+    vertical-align: 1px;
+    opacity: 0.9;
+}

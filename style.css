@@ -795,7 +795,7 @@ footer {
 
 .dining-content .sub {
   font-size: 18px;
-  color: var(--accent);
+  color: #666666;
   margin-bottom: 20px;
 }
 
@@ -1469,7 +1469,7 @@ footer {
 .gallery-head h2 {
   font-family: var(--font-heading);
   font-size: 42px;
-  color: var(--primary);
+  color: #b8860b;
   margin-bottom: 10px;
 }
 
@@ -1732,7 +1732,7 @@ footer {
 
 /* EVENTS SECTION */
 .events-section {
-  padding: 70px 0;
+  padding: 1px 0 70px 0;
   background: linear-gradient(135deg, #faf9f6, #f2eee6);
 }
 
@@ -3041,6 +3041,11 @@ footer {
   color: var(--accent);
 }
 
+/* Toggle class (used by JS) */
+.dropdown-menu.open {
+  display: flex !important;
+}
+
 /* SHOW ON HOVER */
 .dropdown:hover .dropdown-menu {
   display: flex;
@@ -3080,7 +3085,7 @@ footer {
 .vt-bg-premium {
   position: absolute;
   inset: 0;
-  background: url('images/virtual-tour.jpg') center/cover no-repeat;
+  background: url('images/360-tour.avif') center/cover no-repeat;
   filter: brightness(0.48);
   z-index: 1;
 }
@@ -3436,11 +3441,12 @@ footer {
 
 /* ===== FIX 1: Mobile Navigation (Already has some responsive code, enhancing it) ===== */
 @media (max-width: 900px) {
+
   /* Ensure nav doesn't show on mobile unless toggled */
   nav:not(.mobile-active) {
     display: none !important;
   }
-  
+
   /* When active, make it full width */
   nav.mobile-active {
     display: flex !important;
@@ -3456,7 +3462,7 @@ footer {
     max-height: calc(100vh - 70px);
     overflow-y: auto;
   }
-  
+
   /* Fix dropdown in mobile nav */
   .dropdown-menu {
     position: static !important;
@@ -3475,15 +3481,15 @@ footer {
     min-height: 500px;
     padding: 60px 0 40px;
   }
-  
+
   .hero-content {
     padding: 0 16px;
   }
-  
+
   .hero-text h1 {
     font-size: 32px !important;
   }
-  
+
   .hero-text p {
     font-size: 15px;
     max-width: 100%;
@@ -3501,7 +3507,7 @@ footer {
   body {
     overflow-x: hidden !important;
   }
-  
+
   .container {
     max-width: 100%;
     padding-left: 16px;
@@ -3511,11 +3517,12 @@ footer {
 
 /* ===== FIX 4: Fix Grids on Mobile ===== */
 @media (max-width: 600px) {
+
   /* Force all multi-column grids to single column */
   .grid[style*="grid-template-columns: 1fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
-  
+
   .dining-wrapper,
   .hero-content {
     grid-template-columns: 1fr !important;
@@ -3528,7 +3535,7 @@ footer {
     max-width: 100%;
     height: auto;
   }
-  
+
   .dining-img,
   .room-img {
     height: 220px;
@@ -3537,6 +3544,7 @@ footer {
 
 /* ===== FIX 6: Modals - Make them fit mobile screens ===== */
 @media (max-width: 600px) {
+
   .reservation-modal,
   .event-join-modal,
   .review-modal {
@@ -3545,11 +3553,11 @@ footer {
     padding: 24px 20px !important;
     margin: 20px;
   }
-  
+
   .reservation-form .form-row {
     grid-template-columns: 1fr !important;
   }
-  
+
   .modal-title,
   .event-join-title {
     font-size: 22px !important;
@@ -3566,7 +3574,7 @@ footer {
     left: 0 !important;
     border-radius: 0 !important;
   }
-  
+
   #aiChatbotBtn {
     width: 50px;
     height: 50px;
@@ -3581,7 +3589,7 @@ footer {
     text-align: center;
     gap: 20px;
   }
-  
+
   .footer-right {
     flex-direction: column !important;
     gap: 12px;
@@ -3594,16 +3602,16 @@ footer {
     width: 100%;
     gap: 10px;
   }
-  
+
   .quick-actions .btn {
     width: 100% !important;
   }
-  
+
   .room-bottom {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .room-bottom .btn {
     width: 100% !important;
   }
@@ -3620,8 +3628,8 @@ footer {
   .reviews-grid {
     grid-template-columns: 1fr !important;
   }
-  
-  .review-card > img {
+
+  .review-card>img {
     height: 180px;
   }
 }
@@ -3639,7 +3647,7 @@ footer {
     grid-template-columns: 1fr !important;
     gap: 16px;
   }
-  
+
   .gallery-item {
     height: 250px;
   }
@@ -3650,11 +3658,11 @@ footer {
   .vt-box {
     padding: 60px 20px !important;
   }
-  
+
   .vt-content h2 {
     font-size: 28px !important;
   }
-  
+
   .tour-modal-box {
     padding: 24px !important;
   }
@@ -3666,12 +3674,12 @@ footer {
     flex-direction: column !important;
     height: auto !important;
   }
-  
+
   .booking-room-img {
     width: 100% !important;
     height: 200px !important;
   }
-  
+
   .booking-room-footer {
     flex-direction: row !important;
     width: 100%;
@@ -3683,23 +3691,27 @@ footer {
 
 /* ===== FIX 15: Form Inputs - Prevent iOS Zoom ===== */
 @media (max-width: 900px) {
+
   input[type="text"],
   input[type="email"],
   input[type="tel"],
   input[type="date"],
   select,
   textarea {
-    font-size: 16px !important; /* iOS won't zoom if 16px or larger */
+    font-size: 16px !important;
+    /* iOS won't zoom if 16px or larger */
   }
 }
 
 /* ===== FIX 16: Touch Targets - Make buttons easier to tap ===== */
 @media (max-width: 900px) {
+
   button,
   .btn,
   a.nav-link,
   .nav-cta {
-    min-height: 44px; /* Apple's recommended minimum */
+    min-height: 44px;
+    /* Apple's recommended minimum */
     padding: 12px 16px;
   }
 }
@@ -3709,11 +3721,11 @@ footer {
   section {
     padding: 40px 0 !important;
   }
-  
+
   .section-header {
     margin-bottom: 40px;
   }
-  
+
   .section-header h2 {
     font-size: 28px !important;
     margin-top: 0 !important;
@@ -3725,15 +3737,15 @@ footer {
   h1 {
     font-size: 28px !important;
   }
-  
+
   h2 {
     font-size: 24px !important;
   }
-  
+
   h3 {
     font-size: 20px !important;
   }
-  
+
   body {
     font-size: 15px;
   }
@@ -3744,7 +3756,7 @@ footer {
   .dining-wrapper {
     gap: 30px;
   }
-  
+
   .dining-highlights {
     grid-template-columns: 1fr !important;
   }
@@ -3752,6 +3764,7 @@ footer {
 
 /* ===== FIX 20: About Page ===== */
 @media (max-width: 900px) {
+
   section[style*="grid-template-columns"] .grid,
   section div[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
@@ -3779,7 +3792,7 @@ footer {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .review-nav-btn {
     width: 100%;
     justify-content: center;
@@ -3792,10 +3805,11 @@ footer {
     width: 95% !important;
     padding: 28px 20px !important;
   }
-  
+
   .join-field,
   .join-textarea {
-    font-size: 16px; /* Prevent iOS zoom */
+    font-size: 16px;
+    /* Prevent iOS zoom */
   }
 }
 
@@ -3808,31 +3822,32 @@ footer {
 
 /* ===== FIX 26: Virtual Tour Section - Add Padding on Mobile ===== */
 @media (max-width: 768px) {
+
   .virtual-tour-premium,
   .virtual-tour-section,
   #virtual-tour {
     padding: 60px 16px !important;
   }
-  
+
   .vt-box {
     padding: 80px 24px !important;
     margin: 0 !important;
   }
-  
+
   .vt-content {
     padding: 0 16px !important;
   }
-  
+
   .vt-content h2 {
     font-size: 26px !important;
     padding: 0 10px;
   }
-  
+
   .vt-content p {
     font-size: 15px !important;
     padding: 0 10px;
   }
-  
+
   .vt-start-btn,
   .btn.primary.vt-start-btn {
     margin: 0 auto;
@@ -3855,7 +3870,7 @@ footer {
     width: calc(100% - 32px) !important;
     max-width: calc(100% - 32px) !important;
   }
-  
+
   .hero-content .booking-widget {
     padding: 24px 50px !important;
   }
@@ -3867,7 +3882,7 @@ footer {
     width: calc(100% - 24px) !important;
     padding: 20px 16px !important;
   }
-  
+
   .booking-widget strong {
     font-size: 18px;
   }
@@ -3875,32 +3890,33 @@ footer {
 
 /* ===== FIX 28: Hide Contact Form on Mobile ===== */
 @media (max-width: 768px) {
+
   /* Hide the "Send a Message" form on mobile */
-  #book .grid > div:last-child,
+  #book .grid>div:last-child,
   #book .fade-up:has(h3:contains("Send a Message")),
   #book form[onsubmit="submitContact(event)"],
   #book .fade-up:last-child {
     display: none !important;
   }
-  
+
   /* Make contact info section full width when form is hidden */
-  #book .grid > div:first-child,
+  #book .grid>div:first-child,
   #book .fade-up:first-child {
     grid-column: 1 / -1;
   }
-  
+
   /* Center align contact information on mobile */
   #book .grid {
     grid-template-columns: 1fr !important;
     text-align: center;
   }
-  
+
   #book .fade-up h2,
   #book .fade-up p,
   #book .fade-up div {
     text-align: center;
   }
-  
+
   #book .socials {
     justify-content: center !important;
   }
@@ -3940,7 +3956,7 @@ footer {
     cursor: pointer !important;
     pointer-events: all !important;
   }
-  
+
   #aiChatPopup {
     position: fixed !important;
     bottom: 0 !important;
@@ -3960,29 +3976,29 @@ footer {
     padding-left: 20px !important;
     padding-right: 20px !important;
   }
-  
+
   .vt-box {
     padding: 80px 24px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  
+
   .vt-content {
     padding: 0 20px !important;
   }
-  
+
   .vt-content h2 {
     font-size: 24px !important;
     line-height: 1.3 !important;
     margin-bottom: 16px !important;
   }
-  
+
   .vt-content p {
     font-size: 15px !important;
     line-height: 1.6 !important;
     margin-bottom: 24px !important;
   }
-  
+
   .vt-start-btn {
     width: auto !important;
     max-width: 280px !important;
@@ -4000,7 +4016,7 @@ footer {
     max-width: calc(100% - 32px) !important;
     padding: 24px 20px !important;
   }
-  
+
   .hero-content {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -4018,21 +4034,22 @@ footer {
 
 /* ===== HIDE CONTACT FORM ON MOBILE ===== */
 @media (max-width: 768px) {
+
   /* Target the contact form container */
-  #book .container > .grid > div:nth-child(2) {
+  #book .container>.grid>div:nth-child(2) {
     display: none !important;
   }
-  
+
   /* Make contact info full width */
-  #book .container > .grid {
+  #book .container>.grid {
     grid-template-columns: 1fr !important;
   }
-  
-  #book .container > .grid > div:first-child {
+
+  #book .container>.grid>div:first-child {
     grid-column: 1 !important;
     text-align: center !important;
   }
-  
+
   #book .socials {
     justify-content: center !important;
   }
@@ -4040,22 +4057,23 @@ footer {
 
 /* ===== ADDITIONAL CRITICAL MOBILE FIXES ===== */
 @media (max-width: 900px) {
+
   /* Prevent horizontal scroll */
   body {
     overflow-x: hidden !important;
   }
-  
+
   /* Container padding */
   .container {
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
-  
+
   /* Fix navigation */
   nav:not(.mobile-active) {
     display: none !important;
   }
-  
+
   nav.mobile-active {
     display: flex !important;
     position: fixed !important;
@@ -4068,23 +4086,23 @@ footer {
     padding: 20px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
   }
-  
+
   /* Hero section */
   .hero-content {
     grid-template-columns: 1fr !important;
   }
-  
+
   .hero-text h1 {
     font-size: 32px !important;
   }
-  
+
   /* Grids to single column */
   .dining-wrapper,
   .events-grid,
   .gallery-grid {
     grid-template-columns: 1fr !important;
   }
-  
+
   /* Reviews grid */
   .reviews-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -4095,16 +4113,16 @@ footer {
   .reviews-grid {
     grid-template-columns: 1fr !important;
   }
-  
+
   .hero-text h1 {
     font-size: 28px !important;
   }
-  
+
   /* Typography */
   h2 {
     font-size: 24px !important;
   }
-  
+
   h3 {
     font-size: 20px !important;
   }
@@ -4112,13 +4130,14 @@ footer {
 
 /* ===== MODALS RESPONSIVE ===== */
 @media (max-width: 600px) {
+
   .reservation-modal,
   .event-join-modal {
     width: 95% !important;
     max-width: 95% !important;
     padding: 24px 20px !important;
   }
-  
+
   .reservation-form .form-row {
     grid-template-columns: 1fr !important;
   }
@@ -4126,6 +4145,7 @@ footer {
 
 /* ===== BUTTONS FULL WIDTH ===== */
 @media (max-width: 600px) {
+
   /* Hero section buttons with gap */
   .quick-actions {
     display: flex !important;
@@ -4133,24 +4153,25 @@ footer {
     width: 100% !important;
     gap: 16px !important;
   }
-  
+
   .quick-actions .btn {
     width: 100% !important;
     margin: 0 !important;
   }
-  
+
   /* Room bottom buttons */
   .room-bottom {
     flex-direction: column !important;
     gap: 12px !important;
   }
-  
+
   .room-bottom .btn {
     width: 100% !important;
   }
 }
 
 @media (max-width: 768px) {
+
   /* Force gap between hero action buttons */
   .quick-actions {
     gap: 16px !important;
@@ -4160,6 +4181,7 @@ footer {
 
 /* ===== PREVENT iOS ZOOM ===== */
 @media (max-width: 900px) {
+
   input[type="text"],
   input[type="email"],
   input[type="tel"],
@@ -4176,7 +4198,7 @@ footer {
     flex-direction: column !important;
     text-align: center !important;
   }
-  
+
   .footer-right {
     flex-direction: row !important;
   }
@@ -4184,6 +4206,7 @@ footer {
 
 /* ===== TOUCH TARGETS ===== */
 @media (max-width: 900px) {
+
   button,
   .btn,
   a {
@@ -4193,16 +4216,20 @@ footer {
 
 /* ===== BOOKING PAGE ===== */
 @media (max-width: 768px) {
+  .dropdown:hover .dropdown-menu {
+    display: none;
+  }
+
   .booking-room-card {
     flex-direction: column !important;
     height: auto !important;
   }
-  
+
   .booking-room-img {
     width: 100% !important;
     height: 200px !important;
   }
-  
+
   .booking-room-footer {
     flex-direction: row !important;
     width: 100% !important;
@@ -4305,7 +4332,7 @@ footer {
     border-radius: 0 !important;
     z-index: 100000 !important;
   }
-  
+
   .ai-chat-header {
     border-radius: 0 !important;
   }
@@ -4320,7 +4347,7 @@ footer {
     width: 100% !important;
     margin-top: 24px !important;
   }
-  
+
   .quick-actions .btn {
     width: 100% !important;
     margin: 0 !important;
@@ -4336,11 +4363,12 @@ footer {
 
 /* ===== ENSURE NO CONFLICTING STYLES ===== */
 @media (max-width: 768px) {
+
   /* Remove any display:none that might be hiding it */
   #aiChatbotBtn[style*="display: none"] {
     display: flex !important;
   }
-  
+
   /* Override any hidden classes */
   #aiChatbotBtn.hidden,
   #aiChatbotBtn[hidden] {
@@ -4377,6 +4405,7 @@ footer {
     overflow-y: auto !important;
     padding: 22px 20px !important;
   }
+
   .reservation-form .form-row {
     grid-template-columns: 1fr !important;
   }
@@ -4408,6 +4437,7 @@ footer {
   .booking-widget {
     margin-top: 20px !important;
   }
+
   .hero-section {
     height: auto !important;
     padding-bottom: 40px !important;
@@ -4425,14 +4455,17 @@ footer {
     padding: 20px !important;
     border-radius: 14px !important;
   }
+
   .booking-widget .form-group label {
     margin-left: 2px !important;
   }
+
   .booking-widget .input,
   .booking-widget select {
     width: 100% !important;
     border-radius: 6px !important;
   }
+
   .booking-widget form {
     gap: 12px !important;
   }
@@ -4465,14 +4498,17 @@ footer {
     flex-wrap: wrap !important;
     text-align: center;
   }
+
   .room-bottom .price {
     width: 100%;
     margin-bottom: 10px;
   }
+
   .room-bottom .btn {
     width: 100% !important;
   }
 }
+
 /* =============================
    MOBILE UI FIXES (FINAL)
 ============================= */
@@ -4504,6 +4540,11 @@ footer {
 
 /* 2️⃣ Check Availability – Inputs properly aligned */
 @media (max-width: 600px) {
+
+  #sendAiMsg {
+    width: 44px;
+  }
+
   .booking-widget {
     width: 100% !important;
     max-width: 100% !important;
@@ -4522,4 +4563,11 @@ footer {
   .booking-widget .form-group {
     width: 100% !important;
   }
+}
+
+/* Section Icons */
+.section-icon {
+  color: var(--accent);
+  margin-right: 10px;
+  font-size: 0.9em;
 }

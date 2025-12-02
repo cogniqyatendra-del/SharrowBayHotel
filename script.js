@@ -753,3 +753,34 @@ window.openReservationModal = openReservationModal;
 window.closeReservationModal = closeReservationModal;
 
 // End of script.js
+
+
+
+/* =========================
+   NAV MORE DROPDOWN TOGGLE
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const dropBtn = document.querySelector(".drop-btn");
+  const dropMenu = document.querySelector(".dropdown-menu");
+
+  if (!dropBtn || !dropMenu) return;
+
+  dropBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Close other dropdowns if needed
+    document.querySelectorAll(".dropdown-menu.open").forEach((m) => {
+      if (m !== dropMenu) m.classList.remove("open");
+    });
+
+    // Toggle this dropdown
+    dropMenu.classList.toggle("open");
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown")) {
+      dropMenu.classList.remove("open");
+    }
+  });
+});

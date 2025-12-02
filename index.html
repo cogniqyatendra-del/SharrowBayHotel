@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>
       Sharrow Bay Hotel & Lakeside Restaurant | Luxury Lake District Hotel
     </title>
@@ -49,6 +52,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="reservation-modal.css" />
     <link rel="stylesheet" href="gallery-enhanced.css" />
+    <link rel="stylesheet" href="custom-icons.css" />
     <!-- NOTE: removed 360 viewer libraries (three/panolens/photo-sphere) since we are using Google Maps now -->
 
     <script type="application/ld+json">
@@ -95,7 +99,7 @@
   <a class="nav-link" href="#events">Events</a>
   <a class="nav-link" href="about.html">About</a>
  <div class="dropdown">
-    <a class="nav-link">MORE ▾</a>
+    <a class=" drop-btn">MORE ▾</a>
     <div class="dropdown-menu">
       <a href="#dining">Dining</a>
       <a href="#gallery">Gallery</a>
@@ -105,8 +109,6 @@
   </div>
   <a class="nav-cta" href="booking.html">Book Now</a>
 </nav>
-
-
         <button
           class="mobile-toggle btn"
           aria-expanded="false"
@@ -182,7 +184,7 @@
       <!-- ROOMS -->
       <section id="rooms" class="container rooms-wrapper">
         <div class="section-header fade-up">
-          <h2>Luxury Accommodation</h2>
+          <h2><i class="fa-solid fa-bed section-icon"></i>Luxury Accommodation</h2>
           <p>Wake up to timeless elegance and breathtaking lakeside views.</p>
         </div>
 
@@ -196,7 +198,7 @@
               <p>
                 Warm, intimate rooms featuring period décor and views of the
                 gardens.
-              </p><br>
+              </p>
               <div class="room-bottom">
                 <span class="price">From £180</span>
                 <a href="booking.html"> <button class="btn primary">View Details</button></a>
@@ -229,8 +231,7 @@
             <div class="room-info">
               <h3>Premier Suite</h3>
               <p>
-                The epitome of luxury featuring a private lounge and balcony
-                overlooking Ullswater.
+                A luxe retreat with a private lounge and balcony overlooking Ullswater.
               </p>
               <div class="room-bottom">
                 <span class="price">From £380</span>
@@ -274,7 +275,7 @@
           </div>
 
           <div class="dining-content">
-            <h2>Award-Winning Dining</h2>
+            <h2><i class="fa-solid fa-utensils section-icon"></i>Award-Winning Dining</h2>
             <p class="sub">Home of the original Sticky Toffee Pudding.</p>
 
             <p class="desc">
@@ -306,7 +307,7 @@
       <section id="gallery" class="gallery-section">
         <div class="container">
           <div class="gallery-head">
-            <h2>Our Beautiful Moments</h2>
+            <h2><i class="fa-solid fa-camera section-icon"></i>Our Beautiful Moments</h2>
             <p>Capturing the timeless charm and lakeside luxury of Sharrow Bay.</p>
             <div class="gold-line"></div>
           </div>
@@ -353,7 +354,7 @@
       <section id="testimonials" class="testimonials-section" aria-label="Guest stories and testimonials">
         <div class="container">
           <div class="section-header">
-            <h2>Guest Stories</h2>
+            <h2><i class="fa-solid fa-comments section-icon"></i>Guest Stories</h2>
             <p>Real memories from guests who enjoyed their stay by Ullswater.</p>
             <button class="btn primary" onclick="openAddReviewModal()" style="margin-top: 16px;">✨ Add Your Review</button>
           </div>
@@ -483,7 +484,7 @@
       <section id="events" class="events-section fade-up">
         <div class="container">
           <div class="section-header">
-            <h2>Upcoming Events</h2>
+            <h2><i class="fa-solid fa-calendar-days section-icon"></i>Upcoming Events</h2>
             <p>Experience unforgettable moments at Sharrow Bay — curated for elegance, joy, and celebration.</p>
           </div>
 
@@ -551,9 +552,9 @@
               <div style="margin-top: 40px">
                 <strong style="display: block; color: var(--accent); margin-bottom: 15px;">Follow Us</strong>
                 <div class="socials" style="display: flex; gap: 15px">
-                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Facebook</a>
-                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Instagram</a>
-                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;">Twitter</a>
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;"><i class="fa-brands fa-facebook" style="color: #ffffff;"></i></a>
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+                  <a href="#" style="color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 4px;"><i class="fa-brands fa-x-twitter" style="color: #ffffff;"></i></a>
                 </div>
               </div>
             </div>
@@ -585,7 +586,7 @@
           <a href="#dining">Dining</a>
           <a href="#events">Events</a>
           <a href="#gallery">Gallery</a>
-             <a href="#testimonials">Review</a>
+          <a href="#testimonials">Review</a>
         </div>
       </div>
     </footer>
