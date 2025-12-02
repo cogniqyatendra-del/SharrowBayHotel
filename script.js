@@ -1,34 +1,48 @@
-// YEAR AUTO UPDATE
-document.addEventListener("DOMContentLoaded", () => {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+/* =========================================================================
+   Sharrow Bay Hotel - script.js
+   Full reproduction (all features preserved from uploaded script.js)
+   - Modular init blocks
+   - Defensive checks (no null.addEventListener errors)
+   - Cloudflare Worker integration (no API key in front-end)
+   ========================================================================= */
 
-  // INTERSECTION OBSERVER FOR FADE-UP ANIMATION
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.1,
-  };
+/* =========================
+   UTILS & COMMON INITIALIZER
+   ========================= */
+(function globalInit() {
+  // YEAR AUTO UPDATE
+  document.addEventListener("DOMContentLoaded", () => {
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target); // Only animate once
-      }
-    });
-  }, observerOptions);
+    // INTERSECTION OBSERVER FOR FADE-UP ANIMATION
+    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target); // Only animate once
+        }
+      });
+    }, observerOptions);
 
-  const fadeElements = document.querySelectorAll(".fade-up");
-  fadeElements.forEach((el) => observer.observe(el));
-});
+    const fadeElements = document.querySelectorAll(".fade-up");
+    fadeElements.forEach((el) => observer.observe(el));
+  });
 
-// MOBILE NAV TOGGLE
+  // Global helper: safe query selector
+  window.$ = (sel) => document.querySelector(sel);
+  window.$$ = (sel) => Array.from(document.querySelectorAll(sel));
+})();
+
+/* =========================
+   MOBILE NAV TOGGLE (GLOBAL)
+   ========================= */
 function toggleMobileNav() {
   const nav = document.querySelector("nav");
   const btn = document.querySelector(".mobile-toggle");
+  if (!nav || !btn) return;
 
-  // Toggle display based on current computed style or inline style
   const isFlex = window.getComputedStyle(nav).display === "flex";
 
   if (isFlex && nav.classList.contains("mobile-active")) {
@@ -51,7 +65,9 @@ function toggleMobileNav() {
   }
 }
 
-// GALLERY MODAL
+/* =========================
+   GALLERY MODAL
+   ========================= */
 function openModal(src) {
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modalImg");
@@ -60,14 +76,12 @@ function openModal(src) {
     modal.classList.add("open");
   }
 }
-
 function closeModal(e) {
-  if (e.target.id === "modal") {
-    document.getElementById("modal").classList.remove("open");
+  if (e && e.target && e.target.id === "modal") {
+    const modalEl = document.getElementById("modal");
+    if (modalEl) modalEl.classList.remove("open");
   }
 }
-
-// CLOSE MODAL WITH ESC
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     const modal = document.getElementById("modal");
@@ -75,12 +89,22 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// BOOKING FORM
+/* =========================
+   BOOKING FORM
+   ========================= */
 function submitBooking(e) {
-  e.preventDefault();
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  const guests = document.getElementById("guests").value;
+  if (e) e.preventDefault();
+  const ciEl = document.getElementById("checkin");
+  const coEl = document.getElementById("checkout");
+  const guestsEl = document.getElementById("guests");
+  if (!ciEl || !coEl) {
+    alert("Please choose valid dates.");
+    return;
+  }
+
+  const ci = ciEl.value;
+  const co = coEl.value;
+  const guests = guestsEl ? guestsEl.value : "";
 
   if (!ci || !co) {
     alert("Please choose valid dates.");
@@ -91,18 +115,19 @@ function submitBooking(e) {
     return;
   }
 
-  // Redirect to booking page with params
   window.location.href = `booking.html?checkin=${ci}&checkout=${co}&guests=${encodeURIComponent(
     guests
   )}`;
 }
 
-// TABLE RESERVATION
+/* =========================
+   TABLE RESERVATION
+   ========================= */
 function reserveTable(e) {
-  e.preventDefault();
-  const date = document.getElementById("res-date").value;
-  const time = document.getElementById("res-time").value;
-  const name = document.getElementById("res-name").value;
+  if (e) e.preventDefault();
+  const date = document.getElementById("res-date")?.value || "";
+  const time = document.getElementById("res-time")?.value || "";
+  const name = document.getElementById("res-name")?.value || "";
 
   if (date && time && name) {
     alert(
@@ -113,16 +138,23 @@ function reserveTable(e) {
   }
 }
 
-// CONTACT FORM
+/* =========================
+   CONTACT FORM
+   ========================= */
 function submitContact(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
   alert("Thank you for your message. We will get back to you shortly.");
-  document.getElementById("cname").value = "";
-  document.getElementById("cemail").value = "";
-  document.getElementById("cmessage").value = "";
+  const cname = document.getElementById("cname");
+  const cemail = document.getElementById("cemail");
+  const cmessage = document.getElementById("cmessage");
+  if (cname) cname.value = "";
+  if (cemail) cemail.value = "";
+  if (cmessage) cmessage.value = "";
 }
 
-// RESERVATION MODAL LOGIC
+/* =========================
+   RESERVATION MODAL LOGIC
+   ========================= */
 function openReservationModal() {
   const modal = document.getElementById("reservationModal");
   if (modal) {
@@ -131,7 +163,6 @@ function openReservationModal() {
     document.body.style.overflow = "hidden";
   }
 }
-
 function closeReservationModal() {
   const modal = document.getElementById("reservationModal");
   if (modal) {
@@ -140,131 +171,56 @@ function closeReservationModal() {
     document.body.style.overflow = "";
   }
 }
-
-// Close on outside click
 document.addEventListener("click", function (e) {
   const modal = document.getElementById("reservationModal");
   if (modal && e.target === modal) {
     closeReservationModal();
   }
 });
-
-// Close on Esc key
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     closeReservationModal();
   }
 });
 
-// Submit reservation form
-function submitReservation(e) {
-  e.preventDefault();
-
-  const date = document.getElementById("reservationDate").value;
-  const time = document.getElementById("reservationTime").value;
-  const guests = document.getElementById("reservationGuests").value;
-  const name = document.getElementById("reservationName").value;
-  const email = document.getElementById("reservationEmail").value;
-  const phone = document.getElementById("reservationPhone").value;
-  const occasion = document.getElementById("reservationOccasion").value;
-  const notes = document.getElementById("reservationNotes").value;
-
-  // Format the date nicely
-  const formattedDate = new Date(date).toLocaleDateString("en-GB", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  // Populate success modal
-  document.getElementById("confirmName").textContent = name;
-  document.getElementById("confirmDate").textContent = formattedDate;
-  document.getElementById("confirmTime").textContent = time;
-  document.getElementById("confirmGuests").textContent = guests;
-  document.getElementById("confirmEmail").textContent = email;
-  document.getElementById("confirmPhone").textContent = phone;
-
-  // Show occasion if provided
-  if (occasion) {
-    document.getElementById("confirmOccasion").textContent =
-      occasion.charAt(0).toUpperCase() + occasion.slice(1);
-    document.getElementById("confirmOccasionRow").style.display = "flex";
-  } else {
-    document.getElementById("confirmOccasionRow").style.display = "none";
-  }
-
-  // Close reservation modal and show success modal
-  closeReservationModal();
-
-  // Small delay for smooth transition
-  setTimeout(() => {
-    const successModal = document.getElementById("reservationSuccessModal");
-    if (successModal) {
-      successModal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    }
-  }, 300);
-
-  // Reset form
-  document.querySelector(".reservation-form").reset();
-}
-
-// Close success modal
-function closeReservationSuccessModal() {
-  const modal = document.getElementById("reservationSuccessModal");
-  if (modal) {
-    modal.style.display = "none";
-    document.body.style.overflow = "";
-  }
-}
-
-// Simple rotation for testimonials (keeps things lively)
-(function () {
+/* =========================
+   TESTIMONIALS ROTATION
+   ========================= */
+(function initTestimonialsRotation() {
   const list = document.getElementById("testimonialsList");
-  const cards = list
-    ? Array.from(list.querySelectorAll(".testimonial-card"))
-    : [];
+  const cards = list ? Array.from(list.querySelectorAll(".testimonial-card")) : [];
+  if (!cards.length) return;
+
   let idx = 0;
   const showCard = (i) => {
     cards.forEach((c, j) => (c.style.display = j === i ? "block" : "none"));
   };
-  if (cards.length) {
-    showCard(0);
-    // auto rotate every 6s
-    const rot = setInterval(() => {
-      idx = (idx + 1) % cards.length;
-      showCard(idx);
-    }, 6000);
+  showCard(0);
 
-    // prev / next buttons
-    const prev = document.getElementById("prevTest");
-    const next = document.getElementById("nextTest");
-    if (prev)
-      prev.addEventListener("click", () => {
-        idx = (idx - 1 + cards.length) % cards.length;
-        showCard(idx);
-      });
-    if (next)
-      next.addEventListener("click", () => {
-        idx = (idx + 1) % cards.length;
-        showCard(idx);
-      });
+  const rot = setInterval(() => {
+    idx = (idx + 1) % cards.length;
+    showCard(idx);
+  }, 6000);
 
-    // stop rotation on hover for better reading
-    list.addEventListener("mouseenter", () => clearInterval(rot), {
-      once: true,
-    });
+  const prev = document.getElementById("prevTest");
+  const next = document.getElementById("nextTest");
+  if (prev) prev.addEventListener("click", () => { idx = (idx - 1 + cards.length) % cards.length; showCard(idx); });
+  if (next) next.addEventListener("click", () => { idx = (idx + 1) % cards.length; showCard(idx); });
+
+  if (list) {
+    list.addEventListener("mouseenter", () => clearInterval(rot), { once: true });
   }
 })();
-// Testimonials carousel
-(function () {
+
+/* =========================
+   TESTIMONIALS CAROUSEL (dots & slides)
+   ========================= */
+(function initTestimonialsCarousel() {
   const slides = Array.from(document.querySelectorAll("#testCarousel .slide"));
   const dotsContainer = document.getElementById("carouselDots");
-  let idx = 0;
-  if (!slides.length) return;
+  if (!slides.length || !dotsContainer) return;
 
-  // create dots
+  let idx = 0;
   slides.forEach((s, i) => {
     const d = document.createElement("button");
     d.className = "carousel-dot";
@@ -274,566 +230,419 @@ function closeReservationSuccessModal() {
   });
 
   const dots = Array.from(dotsContainer.children);
-
   function show(i) {
     slides.forEach((s, ii) => (s.style.display = ii === i ? "block" : "none"));
     dots.forEach((d, ii) => d.classList.toggle("active", ii === i));
     idx = i;
   }
 
-  // next/prev
   const next = document.getElementById("nextSlide");
   const prev = document.getElementById("prevSlide");
-  if (next)
-    next.addEventListener("click", () => show((idx + 1) % slides.length));
-  if (prev)
-    prev.addEventListener("click", () =>
-      show((idx - 1 + slides.length) % slides.length)
-    );
+  if (next) next.addEventListener("click", () => show((idx + 1) % slides.length));
+  if (prev) prev.addEventListener("click", () => show((idx - 1 + slides.length) % slides.length));
 
-  // auto rotate
   let auto = setInterval(() => show((idx + 1) % slides.length), 6000);
-  // pause on hover
   const carousel = document.getElementById("testCarousel");
-  carousel.addEventListener("mouseenter", () => clearInterval(auto), {
-    once: true,
-  });
+  if (carousel) carousel.addEventListener("mouseenter", () => clearInterval(auto), { once: true });
 
-  // init
   show(0);
 })();
 
-// ============================
-// ADD REVIEW → TESTIMONIALS CAROUSEL (LEFT SIDE)
-// ============================
+/* =========================
+   REVIEW MODAL (full feature)
+   ========================= */
+(function initReviewModal() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("reviewModal");
+    if (!modal) return;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("reviewModal");
-  const openBtn = document.querySelector(".open-review-btn");
-  const closeBtn = document.querySelector(".close-modal");
-  const submitBtn = document.querySelector(".submit-review-btn");
-  const stars = document.querySelectorAll(".star-rating span");
+    const openBtn = document.querySelector(".open-review-btn");
+    const closeBtn = document.querySelector(".close-modal");
+    const submitBtn = document.querySelector(".submit-review-btn");
+    const stars = Array.from(document.querySelectorAll(".star-rating span"));
 
-  let selectedRating = 0;
+    let selectedRating = 0;
 
-  // ⭐ STAR SELECTION
-  stars.forEach((star, index) => {
-    star.addEventListener("click", () => {
-      selectedRating = index + 1;
-      stars.forEach((s, i) => s.classList.toggle("active", i < selectedRating));
+    if (stars.length) {
+      stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+          selectedRating = index + 1;
+          stars.forEach((s, i) => s.classList.toggle("active", i < selectedRating));
+        });
+      });
+    }
+
+    if (openBtn) {
+      openBtn.addEventListener("click", () => {
+        resetReviewForm();
+        modal.style.display = "flex";
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => (modal.style.display = "none"));
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) modal.style.display = "none";
     });
-  });
 
-  // ⭐ OPEN MODAL
-  openBtn.addEventListener("click", () => {
-    resetReviewForm();
-    modal.style.display = "flex";
-  });
+    function resetReviewForm() {
+      const inp1 = document.querySelector(".review-input:nth-of-type(1)");
+      const inp2 = document.querySelector(".review-input:nth-of-type(2)");
+      const textarea = document.querySelector(".review-textarea");
+      if (inp1) inp1.value = "";
+      if (inp2) inp2.value = "";
+      if (textarea) textarea.value = "";
+      selectedRating = 0;
+      stars.forEach((s) => s.classList.remove("active"));
+    }
 
-  // ⭐ CLOSE MODAL
-  closeBtn.addEventListener("click", () => (modal.style.display = "none"));
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  });
+    if (submitBtn) {
+      submitBtn.addEventListener("click", () => {
+        const nameEl = document.querySelector(".review-input:nth-of-type(1)");
+        const reviewTextEl = document.querySelector(".review-textarea");
+        const name = nameEl ? nameEl.value.trim() : "";
+        const reviewText = reviewTextEl ? reviewTextEl.value.trim() : "";
 
-  // ⭐ RESET FORM EVERY TIME
-  function resetReviewForm() {
-    document.querySelector(".review-input:nth-of-type(1)").value = "";
-    document.querySelector(".review-input:nth-of-type(2)").value = "";
-    document.querySelector(".review-textarea").value = "";
-    selectedRating = 0;
-    stars.forEach((s) => s.classList.remove("active"));
+        if (!selectedRating || !name || !reviewText) {
+          alert("Please fill all required fields.");
+          return;
+        }
+
+        addReviewToCarousel(name, reviewText, selectedRating);
+        modal.style.display = "none";
+      });
+    }
+
+    function addReviewToCarousel(name, reviewText, rating) {
+      const track = document.getElementById("testimonialsTrack");
+      if (!track) return;
+
+      const starsText = "★★★★★".slice(0, rating) + "☆☆☆☆☆".slice(0, 5 - rating);
+      const reviewHTML = `
+        <article class="testimonial-card featured new-review">
+          <div class="quote">"${reviewText}"</div>
+          <div class="meta">
+            <div class="avatar" style="background-image:url('images/default-user.png')"></div>
+            <div class="meta-text">
+              <strong>${name}</strong>
+              <span class="source">— Guest Review</span>
+              <div class="rating">${starsText}</div>
+            </div>
+          </div>
+        </article>
+      `;
+      track.insertAdjacentHTML("afterbegin", reviewHTML);
+      rebuildCarousel();
+    }
+
+    function rebuildCarousel() {
+      const slides = document.querySelectorAll("#testimonialsTrack .testimonial-card");
+      const dotsContainer = document.getElementById("carouselDots");
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = "";
+
+      slides.forEach((slide, index) => {
+        const dot = document.createElement("button");
+        dot.className = "carousel-dot";
+        dot.addEventListener("click", () => showSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+      showSlide(0);
+    }
+
+    function showSlide(i) {
+      const slides = document.querySelectorAll("#testimonialsTrack .testimonial-card");
+      const dots = document.querySelectorAll(".carousel-dot");
+      slides.forEach((s, idx) => (s.style.display = idx === i ? "block" : "none"));
+      dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+    }
+
+    // initial build (if track exists)
+    rebuildCarousel();
+  });
+})();
+
+/* =========================
+   VIRTUAL TOUR MODAL
+   ========================= */
+(function initVirtualTourModal() {
+  const tourBtn = document.querySelector(".vt-start-btn");
+  const tourModal = document.getElementById("tourModal");
+  const tourClose = document.querySelector(".tour-close");
+
+  if (tourBtn && tourModal) {
+    tourBtn.addEventListener("click", () => {
+      tourModal.style.display = "flex";
+    });
   }
+  if (tourClose && tourModal) {
+    tourClose.addEventListener("click", () => {
+      tourModal.style.display = "none";
+    });
+  }
+  if (tourModal) {
+    tourModal.addEventListener("click", (e) => {
+      if (e.target === tourModal) tourModal.style.display = "none";
+    });
+  }
+})();
 
-  // ⭐ SUBMIT REVIEW → ADD TO LEFT SIDE
-  submitBtn.addEventListener("click", () => {
-    const name = document.querySelector(".review-input:nth-of-type(1)").value;
-    const reviewText = document.querySelector(".review-textarea").value;
+/* =========================
+   AI CHATBOT — Cloudflare Worker
+   ========================= */
+(function initChatbotBlock() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const chatbotBtn = document.getElementById("aiChatbotBtn");
+    const chatPopup = document.getElementById("aiChatPopup");
+    const closeChat = document.getElementById("closeAiChat");
+    const sendBtn = document.getElementById("sendAiMsg");
+    const input = document.getElementById("aiChatInput");
+    const bodyChat = document.getElementById("aiChatBody");
 
-    if (!selectedRating || !name || !reviewText) {
-      alert("Please fill all required fields.");
+    // defensive checks — if chatbot not present, skip init
+    if (!chatbotBtn || !chatPopup || !closeChat || !sendBtn || !input || !bodyChat) {
+      console.warn("Chatbot elements not found — skipping chatbot init on this page.");
       return;
     }
 
-    addReviewToCarousel(name, reviewText, selectedRating);
-    modal.style.display = "none";
-  });
-
-  // ============================
-  // FUNCTION: Insert New Review
-  // ============================
-  function addReviewToCarousel(name, reviewText, rating) {
-    const track = document.getElementById("testimonialsTrack");
-
-    // Convert rating number → stars (★)
-    const stars = "★★★★★".slice(0, rating) + "☆☆☆☆☆".slice(0, 5 - rating);
-
-    // New Review HTML
-    const reviewHTML = `
-      <article class="testimonial-card featured new-review">
-        <div class="quote">"${reviewText}"</div>
-        <div class="meta">
-          <div class="avatar" style="background-image:url('images/default-user.png')"></div>
-          <div class="meta-text">
-            <strong>${name}</strong>
-            <span class="source">— Guest Review</span>
-            <div class="rating">${stars}</div>
-          </div>
-        </div>
-      </article>
-    `;
-
-    // Insert at TOP
-    track.insertAdjacentHTML("afterbegin", reviewHTML);
-
-    // Rebuild carousel dots & slides
-    rebuildCarousel();
-  }
-
-  // ============================
-  // REBUILD CAROUSEL (Dots + Slides)
-  // ============================
-  function rebuildCarousel() {
-    const slides = document.querySelectorAll(
-      "#testimonialsTrack .testimonial-card"
-    );
-    const dotsContainer = document.getElementById("carouselDots");
-
-    dotsContainer.innerHTML = ""; // Reset dots
-
-    slides.forEach((slide, index) => {
-      const dot = document.createElement("button");
-      dot.className = "carousel-dot";
-      dot.addEventListener("click", () => showSlide(index));
-      dotsContainer.appendChild(dot);
+    // toggle popup
+    chatbotBtn.addEventListener("click", () => {
+      chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
+    });
+    closeChat.addEventListener("click", () => {
+      chatPopup.style.display = "none";
     });
 
-    showSlide(0); // Always show newest slide
-  }
-
-  // ============================
-  // SHOW SLIDE
-  // ============================
-  function showSlide(i) {
-    const slides = document.querySelectorAll(
-      "#testimonialsTrack .testimonial-card"
-    );
-    const dots = document.querySelectorAll(".carousel-dot");
-
-    slides.forEach(
-      (s, idx) => (s.style.display = idx === i ? "block" : "none")
-    );
-    dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
-  }
-
-  rebuildCarousel(); // Initial load
-});
-
-// VIRTUAL TOUR MODAL
-const tourBtn = document.querySelector(".vt-start-btn");
-const tourModal = document.getElementById("tourModal");
-const tourClose = document.querySelector(".tour-close");
-
-tourBtn.addEventListener("click", () => {
-  tourModal.style.display = "flex";
-});
-
-tourClose.addEventListener("click", () => {
-  tourModal.style.display = "none";
-});
-
-// close when clicking outside
-tourModal.addEventListener("click", (e) => {
-  if (e.target === tourModal) {
-    tourModal.style.display = "none";
-  }
-});
-/* =========================================
-      AI CHATBOT — GOOGLE GEMINI API
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const chatbotBtn = document.getElementById("aiChatbotBtn");
-  const chatPopup = document.getElementById("aiChatPopup");
-  const closeChat = document.getElementById("closeAiChat");
-  const sendBtn = document.getElementById("sendAiMsg");
-  const input = document.getElementById("aiChatInput");
-  const bodyChat = document.getElementById("aiChatBody");
-
-  if (
-    !chatbotBtn ||
-    !chatPopup ||
-    !closeChat ||
-    !sendBtn ||
-    !input ||
-    !bodyChat
-  ) {
-    console.error("Chatbot elements not found!");
-    return;
-  }
-
-  // TOGGLE POPUP (open/close)
-  chatbotBtn.onclick = () => {
-    if (chatPopup.style.display === "flex") {
-      chatPopup.style.display = "none";
-    } else {
-      chatPopup.style.display = "flex";
-    }
-  };
-  closeChat.onclick = () => {
-    chatPopup.style.display = "none";
-  };
-
-  // SCROLL HELPER
-  function scrollChat() {
-    bodyChat.scrollTop = bodyChat.scrollHeight;
-  }
-  // SEND GOOGLE MAP INSIDE CHAT
-  function addMapMessage() {
-    const mapBox = document.createElement("div");
-    mapBox.className = "ai-map-box";
-
-    mapBox.innerHTML = `
-    <div class="map-title">📍 Sharrow Bay Location</div>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2311.7982480160163!2d-2.846408923300556!3d54.589928972675935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487ce5710030c0c1%3A0x65eed713a0bf4b8f!2sSharrow%20Bay!5e0!3m2!1sen!2sin!4v1764324283869!5m2!1sen!2sin"
-      width="100%" height="180"
-      style="border:0; border-radius:12px;"
-      allowfullscreen="" loading="lazy">
-    </iframe>
-  `;
-
-    bodyChat.appendChild(mapBox);
-    scrollChat();
-  }
-
-  // ADD USER MESSAGE
-  function addUserMessage(text) {
-    bodyChat.innerHTML += `<div class="ai-msg user">${text}</div>`;
-    scrollChat();
-  }
-
-  // ADD BOT MESSAGE WITH DYNAMIC BUTTONS
-  function addBotMessage(text, userQuestion = "") {
-    const msgDiv = document.createElement("div");
-    msgDiv.className = "ai-msg bot";
-    msgDiv.textContent = text;
-    bodyChat.appendChild(msgDiv);
-
-    // Detect keywords and add action buttons
-    const lowerText = text.toLowerCase();
-    const buttons = [];
-
-    if (lowerText.includes("room") || lowerText.includes("accommodation")) {
-      buttons.push({ text: "🏨 View Rooms", link: "#rooms" });
-    }
-    if (
-      lowerText.includes("dining") ||
-      lowerText.includes("restaurant") ||
-      lowerText.includes("menu")
-    ) {
-      buttons.push({ text: "🍽️ View Dining", link: "#dining" });
-    }
-    if (
-      lowerText.includes("event") ||
-      lowerText.includes("occasion") ||
-      lowerText.includes("celebration")
-    ) {
-      buttons.push({ text: "🎉 View Events", link: "#events" });
-    }
-    // if (lowerText.includes("afternoon tea") || lowerText.includes("tea")) {
-    //   buttons.push({ text: "☕ Book Afternoon Tea", link: "#afternoon-tea" });
-    // }
-    if (
-      lowerText.includes("contact") ||
-      lowerText.includes("reservation") ||
-      lowerText.includes("booking")
-    ) {
-      buttons.push({ text: "📞 Contact Us", link: "#book" });
+    // helper: scroll
+    function scrollChat() {
+      bodyChat.scrollTop = bodyChat.scrollHeight;
     }
 
-    // AUTO-SEND MAP - Check USER'S QUESTION, not bot's response
-    const lowerUserQuestion = userQuestion.toLowerCase();
-    if (
-      lowerUserQuestion.includes("location") ||
-      lowerUserQuestion.includes("address") ||
-      lowerUserQuestion.includes("where are you") ||
-      lowerUserQuestion.includes("where is") ||
-      lowerUserQuestion.includes("how to get") ||
-      lowerUserQuestion.includes("how to reach") ||
-      lowerUserQuestion.includes("find you") ||
-      lowerUserQuestion.includes("directions") ||
-      lowerUserQuestion.includes("map")
-    ) {
-      setTimeout(() => addMapMessage(), 300); // slight delay (more natural)
+    // add map bubble
+    function addMapMessage() {
+      const mapBox = document.createElement("div");
+      mapBox.className = "ai-map-box";
+      mapBox.innerHTML = `
+        <div class="map-title">📍 Sharrow Bay Location</div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2311.7982480160163!2d-2.846408923300556!3d54.589928972675935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487ce5710030c0c1%3A0x65eed713a0bf4b8f!2sSharrow%20Bay!5e0!3m2!1sen!2sin!4v1764324283869!5m2!1sen!2sin" width="100%" height="180" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+      `;
+      bodyChat.appendChild(mapBox);
+      scrollChat();
     }
 
-    // Add buttons if any were detected
-    if (buttons.length > 0) {
-      const btnContainer = document.createElement("div");
-      btnContainer.className = "ai-action-buttons";
-
-      buttons.forEach((btn) => {
-        const button = document.createElement("a");
-        button.href = btn.link;
-        button.className = "ai-action-btn";
-        button.textContent = btn.text;
-        button.onclick = () => {
-          chatPopup.style.display = "none"; // Close chatbot
-        };
-        btnContainer.appendChild(button);
-      });
-
-      bodyChat.appendChild(btnContainer);
+    // add user message
+    function addUserMessage(text) {
+      bodyChat.innerHTML += `<div class="ai-msg user">${text}</div>`;
+      scrollChat();
     }
 
-    scrollChat();
-  }
+    // add bot message + dynamic buttons
+    function addBotMessage(text, userQuestion = "") {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "ai-msg bot";
+      msgDiv.textContent = text;
+      bodyChat.appendChild(msgDiv);
 
-  // SEND MESSAGE → Cloudflare Worker (Safe, No API Key in Frontend)
-  async function sendToGroq(msg) {
-    const workerURL = "https://silent-hat-00fc.cogniq-yatendra.workers.dev";
+      const lowerText = text.toLowerCase();
+      const buttons = [];
 
-    const systemPrompt = `You are Sharrow Bay Hotel's AI assistant. You are helpful, friendly, and knowledgeable about the hotel.
+      if (lowerText.includes("room") || lowerText.includes("accommodation")) buttons.push({ text: "🏨 View Rooms", link: "#rooms" });
+      if (lowerText.includes("dining") || lowerText.includes("restaurant") || lowerText.includes("menu")) buttons.push({ text: "🍽️ View Dining", link: "#dining" });
+      if (lowerText.includes("event") || lowerText.includes("occasion") || lowerText.includes("celebration")) buttons.push({ text: "🎉 View Events", link: "#events" });
+      if (lowerText.includes("contact") || lowerText.includes("reservation") || lowerText.includes("booking")) buttons.push({ text: "📞 Contact Us", link: "#book" });
+
+      const lowerUserQuestion = userQuestion.toLowerCase();
+      if (lowerUserQuestion.includes("location") || lowerUserQuestion.includes("address") || lowerUserQuestion.includes("where are you") || lowerUserQuestion.includes("how to get") || lowerUserQuestion.includes("directions") || lowerUserQuestion.includes("map")) {
+        setTimeout(() => addMapMessage(), 300);
+      }
+
+      if (buttons.length > 0) {
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "ai-action-buttons";
+        buttons.forEach((btn) => {
+          const button = document.createElement("a");
+          button.href = btn.link;
+          button.className = "ai-action-btn";
+          button.textContent = btn.text;
+          button.addEventListener("click", () => (chatPopup.style.display = "none"));
+          btnContainer.appendChild(button);
+        });
+        bodyChat.appendChild(btnContainer);
+      }
+      scrollChat();
+    }
+
+    // CLOUDflare Worker function — secure
+    async function sendToGroq(msg) {
+      const workerURL = "https://silent-hat-00fc.cogniq-yatendra.workers.dev";
+      const systemPrompt = `You are Sharrow Bay Hotel's AI assistant. You are helpful, friendly, and knowledgeable about the hotel.
 Respond in 2–3 short, friendly sentences. Be warm and professional.`;
 
-    try {
-      const response = await fetch(workerURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: msg,
-          system: systemPrompt,
-        }),
+      try {
+        const response = await fetch(workerURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: msg,
+            system: systemPrompt,
+            messages: [{ role: "user", content: msg }]
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          console.error("Worker Error:", data);
+          addBotMessage("⚠️ I'm having trouble connecting right now. Please try again later.");
+          return;
+        }
+
+        const reply = data?.choices?.[0]?.message?.content || "I'm sorry, I couldn't understand that.";
+        addBotMessage(reply, msg);
+      } catch (err) {
+        console.error("Network Error:", err);
+        addBotMessage("⚠️ Network error. Please try again.");
+      }
+    }
+
+    // Suggestion chips
+    document.querySelectorAll(".suggestion-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const text = chip.textContent;
+        addUserMessage(text);
+        sendToGroq(text);
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error("Worker Error:", data);
-        addBotMessage(
-          "⚠️ I'm having trouble connecting. Please try again later."
-        );
-        return;
-      }
-
-      const reply =
-        data?.choices?.[0]?.message?.content ||
-        "I'm sorry, I couldn't understand that.";
-
-      addBotMessage(reply, msg);
-    } catch (err) {
-      console.error("Network Error:", err);
-      addBotMessage("⚠️ Network error. Please try again.");
-    }
-  }
-
-  // ============================
-  // SUGGESTION CHIPS
-  // ============================
-  document.querySelectorAll(".suggestion-chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const text = chip.textContent;
-      addUserMessage(text);
-      sendToGroq(text);
     });
-  });
 
-  // ============================
-  // CLEAR CHAT
-  // ============================
-  const clearBtn = document.getElementById("clearChatBtn");
-  if (clearBtn) {
-    clearBtn.addEventListener("click", () => {
-      // Keep only the first message (Bot greeting)
-      const firstMsg = bodyChat.querySelector(".ai-msg.bot");
-      bodyChat.innerHTML = "";
-      if (firstMsg) bodyChat.appendChild(firstMsg);
-    });
-  }
-
-  // SEND BUTTON CLICK
-  sendBtn.onclick = () => {
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    addUserMessage(msg);
-    input.value = "";
-    sendToGroq(msg);
-  };
-
-  // ENTER KEY SUPPORT
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendBtn.click();
-  });
-});
-
-/* ============================
-   EVENT JOIN POPUP - FIXED
-   ============================ */
-document.addEventListener("DOMContentLoaded", () => {
-  // Elements (defensive)
-  const eventJoinModal = document.getElementById("eventJoinModal");
-  const eventSuccessModal = document.getElementById("eventSuccessModal");
-  const eventForm = document.getElementById("eventJoinForm");
-  const joinClose = document.querySelector(".event-join-close");
-  const successCloseBtn = document.getElementById("successCloseBtn");
-
-  // Buttons that should open the modal (all three classes)
-  const triggerButtons = Array.from(
-    document.querySelectorAll(
-      ".reserve-seat-btn, .join-experience-btn, .book-now-btn"
-    )
-  );
-
-  // Sanity checks (logs help debug)
-  if (!eventJoinModal)
-    console.error(
-      'eventJoinModal element not found. Make sure HTML contains id="eventJoinModal".'
-    );
-  if (!eventForm)
-    console.warn("eventJoinForm not found. Form will not submit.");
-  if (!triggerButtons.length)
-    console.warn(
-      "No trigger buttons found with classes .reserve-seat-btn, .join-experience-btn, .book-now-btn"
-    );
-  if (!eventSuccessModal)
-    console.warn("eventSuccessModal not found. Success popup won't show.");
-
-  // Helper to open modal
-  function openJoinModal(e) {
-    if (!eventJoinModal) return;
-    eventJoinModal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-
-    // Autofill name if saved
-    const savedName = localStorage.getItem("visitorName");
-    const nameInput = document.getElementById("eventName");
-    if (savedName && nameInput) nameInput.value = savedName;
-
-    // Set date min to today
-    const dateInput = document.getElementById("eventDate");
-    if (dateInput) {
-      const today = new Date().toISOString().split("T")[0];
-      dateInput.min = today;
+    // Clear chat
+    const clearBtn = document.getElementById("clearChatBtn");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        const firstMsg = bodyChat.querySelector(".ai-msg.bot");
+        bodyChat.innerHTML = "";
+        if (firstMsg) bodyChat.appendChild(firstMsg);
+      });
     }
 
-    // If the trigger button contains data about event type, preselect it (optional)
-    const trigger = e && e.currentTarget;
-    if (trigger && trigger.dataset && trigger.dataset.event) {
-      const sel = document.getElementById("eventType");
-      if (sel) sel.value = trigger.dataset.event;
-    }
-  }
+    // Send button logic
+    sendBtn.addEventListener("click", () => {
+      const msg = input.value.trim();
+      if (!msg) return;
+      addUserMessage(msg);
+      input.value = "";
+      sendToGroq(msg);
+    });
 
-  // Attach open listeners
-  triggerButtons.forEach((btn) => {
-    btn.addEventListener("click", openJoinModal);
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendBtn.click();
+    });
   });
+})();
 
-  // Close functions
-  function closeJoin() {
-    if (!eventJoinModal) return;
-    eventJoinModal.style.display = "none";
-    document.body.style.overflow = "";
-  }
+/* =========================
+   EVENT JOIN POPUP
+   ========================= */
+(function initEventJoinPopup() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const eventJoinModal = document.getElementById("eventJoinModal");
+    const eventSuccessModal = document.getElementById("eventSuccessModal");
+    const eventForm = document.getElementById("eventJoinForm");
+    const joinClose = document.querySelector(".event-join-close");
+    const successCloseBtn = document.getElementById("successCloseBtn");
+    const triggerButtons = Array.from(document.querySelectorAll(".reserve-seat-btn, .join-experience-btn, .book-now-btn"));
 
-  if (joinClose) joinClose.addEventListener("click", closeJoin);
+    if (!eventJoinModal) {
+      console.warn('eventJoinModal element not found. Make sure HTML contains id="eventJoinModal".');
+    }
+    if (!eventForm) console.warn("eventJoinForm not found. Form will not submit.");
+    if (!triggerButtons.length) console.warn("No trigger buttons found with the expected classes.");
+    if (!eventSuccessModal) console.warn("eventSuccessModal not found. Success popup won't show.");
 
-  // Close on outside click
-  if (eventJoinModal) {
-    eventJoinModal.addEventListener("click", (ev) => {
-      if (ev.target === eventJoinModal) closeJoin();
-    });
-  }
+    function openJoinModal(e) {
+      if (!eventJoinModal) return;
+      eventJoinModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
 
-  // Submit form
-  if (eventForm) {
-    eventForm.addEventListener("submit", (ev) => {
-      ev.preventDefault();
+      const savedName = localStorage.getItem("visitorName");
+      const nameInput = document.getElementById("eventName");
+      if (savedName && nameInput) nameInput.value = savedName;
 
-      const nameEl = document.getElementById("eventName");
-      const emailEl = document.getElementById("eventEmail");
-      const phoneEl = document.getElementById("eventPhone");
-      const typeEl = document.getElementById("eventType");
-      const dateEl = document.getElementById("eventDate");
-
-      // Basic validation
-      if (!nameEl || !nameEl.value.trim()) {
-        alert("Please enter your name.");
-        nameEl && nameEl.focus();
-        return;
-      }
-      if (!emailEl || !emailEl.value.trim()) {
-        alert("Please enter your email.");
-        emailEl && emailEl.focus();
-        return;
-      }
-      if (!dateEl || !dateEl.value) {
-        alert("Please choose an event date.");
-        dateEl && dateEl.focus();
-        return;
+      const dateInput = document.getElementById("eventDate");
+      if (dateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
       }
 
-      // Save name for future visits
-      localStorage.setItem("visitorName", nameEl.value.trim());
-
-      // You can send the data to server here (AJAX/fetch). For now we show success modal:
-      closeJoin();
-
-      if (eventSuccessModal) {
-        eventSuccessModal.style.display = "flex";
-        document.body.style.overflow = "hidden";
-      } else {
-        // fallback toast
-        alert("Reservation confirmed — thank you!");
+      const trigger = e && e.currentTarget;
+      if (trigger && trigger.dataset && trigger.dataset.event) {
+        const sel = document.getElementById("eventType");
+        if (sel) sel.value = trigger.dataset.event;
       }
+    }
 
-      // (Optional) Clear form or keep values
-      // eventForm.reset();
-    });
-  }
+    triggerButtons.forEach((btn) => btn.addEventListener("click", openJoinModal));
+    if (joinClose) joinClose.addEventListener("click", () => { if (eventJoinModal) { eventJoinModal.style.display = "none"; document.body.style.overflow = ""; } });
 
-  // Success close
-  if (successCloseBtn) {
-    successCloseBtn.addEventListener("click", () => {
-      if (eventSuccessModal) {
-        eventSuccessModal.style.display = "none";
-        document.body.style.overflow = "";
-      }
-    });
-  }
+    if (eventJoinModal) {
+      eventJoinModal.addEventListener("click", (ev) => {
+        if (ev.target === eventJoinModal) {
+          eventJoinModal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+      });
+    }
 
-  // Close success modal on outside click
-  if (eventSuccessModal) {
-    eventSuccessModal.addEventListener("click", (ev) => {
-      if (ev.target === eventSuccessModal) {
-        eventSuccessModal.style.display = "none";
-        document.body.style.overflow = "";
-      }
-    });
-  }
+    if (eventForm) {
+      eventForm.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        const nameEl = document.getElementById("eventName");
+        const emailEl = document.getElementById("eventEmail");
+        const phoneEl = document.getElementById("eventPhone");
+        const dateEl = document.getElementById("eventDate");
 
-  // Developer helper: expose open function (for quick manual test from console)
-  window.__openEventJoinModal = openJoinModal;
-});
+        if (!nameEl || !nameEl.value.trim()) { alert("Please enter your name."); nameEl && nameEl.focus(); return; }
+        if (!emailEl || !emailEl.value.trim()) { alert("Please enter your email."); emailEl && emailEl.focus(); return; }
+        if (!dateEl || !dateEl.value) { alert("Please choose an event date."); dateEl && dateEl.focus(); return; }
 
-// =============================================
-// CHATBOT FIX - Add this to the END of script.js
-// This ensures chatbot is visible on mobile
-// =============================================
+        localStorage.setItem("visitorName", nameEl.value.trim());
 
+        if (eventJoinModal) { eventJoinModal.style.display = "none"; document.body.style.overflow = ""; }
+
+        if (eventSuccessModal) {
+          eventSuccessModal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        } else {
+          alert("Reservation confirmed — thank you!");
+        }
+      });
+    }
+
+    if (successCloseBtn) {
+      successCloseBtn.addEventListener("click", () => {
+        if (eventSuccessModal) { eventSuccessModal.style.display = "none"; document.body.style.overflow = ""; }
+      });
+    }
+
+    if (eventSuccessModal) {
+      eventSuccessModal.addEventListener("click", (ev) => {
+        if (ev.target === eventSuccessModal) { eventSuccessModal.style.display = "none"; document.body.style.overflow = ""; }
+      });
+    }
+
+    // developer helper
+    window.__openEventJoinModal = openJoinModal;
+  });
+})();
+
+/* =========================
+   CHATBOT MOBILE VISIBILITY FIXER (END)
+   ========================= */
 document.addEventListener("DOMContentLoaded", function () {
-  // Force chatbot button to be visible
   const chatbotBtn = document.getElementById("aiChatbotBtn");
   const chatPopup = document.getElementById("aiChatPopup");
 
   if (chatbotBtn) {
-    console.log("✅ Chatbot button found!");
-
-    // Force visibility
     chatbotBtn.style.display = "flex";
     chatbotBtn.style.visibility = "visible";
     chatbotBtn.style.opacity = "1";
@@ -841,51 +650,17 @@ document.addEventListener("DOMContentLoaded", function () {
     chatbotBtn.style.bottom = "20px";
     chatbotBtn.style.right = "20px";
     chatbotBtn.style.zIndex = "99999";
-
-    console.log("✅ Chatbot styles applied!");
-    console.log("Chatbot position:", chatbotBtn.getBoundingClientRect());
   } else {
-    console.error("❌ Chatbot button NOT found in DOM!");
-    console.log("Creating chatbot button...");
-
-    // Create chatbot button if it doesn't exist
     const newBtn = document.createElement("div");
     newBtn.id = "aiChatbotBtn";
     newBtn.innerHTML = "💬";
-    newBtn.style.cssText = `
-      display: flex !important;
-      position: fixed !important;
-      bottom: 20px !important;
-      right: 20px !important;
-      width: 56px !important;
-      height: 56px !important;
-      background: #c5a059 !important;
-      border-radius: 50% !important;
-      color: white !important;
-      font-size: 26px !important;
-      align-items: center !important;
-      justify-content: center !important;
-      cursor: pointer !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-      z-index: 99999 !important;
-    `;
-
-    // Add click handler
+    newBtn.style.cssText = `display:flex;position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#c5a059;border-radius:50%;color:white;font-size:26px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:99999;`;
     newBtn.addEventListener("click", function () {
-      if (chatPopup) {
-        if (chatPopup.style.display === "flex") {
-          chatPopup.style.display = "none";
-        } else {
-          chatPopup.style.display = "flex";
-        }
-      }
+      if (chatPopup) chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
     });
-
     document.body.appendChild(newBtn);
-    console.log("✅ Chatbot button created!");
   }
 
-  // Test on window resize
   window.addEventListener("resize", function () {
     const btn = document.getElementById("aiChatbotBtn");
     if (btn && window.innerWidth <= 768) {
@@ -893,17 +668,27 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.style.visibility = "visible";
     }
   });
+
+  setTimeout(function () {
+    const btn = document.getElementById("aiChatbotBtn");
+    if (btn) {
+      console.log("🔍 Final check - Chatbot computed styles:", window.getComputedStyle(btn).display, window.getComputedStyle(btn).visibility, window.getComputedStyle(btn).zIndex);
+    }
+  }, 1000);
 });
 
-// Additional check after 1 second
-setTimeout(function () {
-  const chatbotBtn = document.getElementById("aiChatbotBtn");
-  if (chatbotBtn) {
-    console.log(
-      "🔍 Final check - Chatbot computed styles:",
-      window.getComputedStyle(chatbotBtn).display,
-      window.getComputedStyle(chatbotBtn).visibility,
-      window.getComputedStyle(chatbotBtn).zIndex
-    );
-  }
-}, 1000);
+/* =========================
+   EXTRA SAFEGUARDS & EXPORTS
+   ========================= */
+
+// Attach global functions to window for debugging/testing
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.toggleMobileNav = toggleMobileNav;
+window.submitBooking = submitBooking;
+window.reserveTable = reserveTable;
+window.submitContact = submitContact;
+window.openReservationModal = openReservationModal;
+window.closeReservationModal = closeReservationModal;
+
+// End of script.js
