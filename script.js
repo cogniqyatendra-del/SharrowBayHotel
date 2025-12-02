@@ -590,44 +590,45 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollChat();
   }
 
-// SEND MESSAGE → Cloudflare Worker (Safe, No API Key in Frontend)
-async function sendToGroq(msg) {
-  const workerURL = "https://YOUR-WORKER-URL.workers.dev";
+  // SEND MESSAGE → Cloudflare Worker (Safe, No API Key in Frontend)
+  async function sendToGroq(msg) {
+    const workerURL = "https://silent-hat-00fc.cogniq-yatendra.workers.dev";
 
-  const systemPrompt = `You are Sharrow Bay Hotel's AI assistant. You are helpful, friendly, and knowledgeable about the hotel.
+    const systemPrompt = `You are Sharrow Bay Hotel's AI assistant. You are helpful, friendly, and knowledgeable about the hotel.
 Respond in 2–3 short, friendly sentences. Be warm and professional.`;
 
-  try {
-    const response = await fetch(workerURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        prompt: msg,
-        system: systemPrompt
-      })
-    });
+    try {
+      const response = await fetch(workerURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: msg,
+          system: systemPrompt,
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
-      console.error("Worker Error:", data);
-      addBotMessage("⚠️ I'm having trouble connecting. Please try again later.");
-      return;
+      if (!response.ok) {
+        console.error("Worker Error:", data);
+        addBotMessage(
+          "⚠️ I'm having trouble connecting. Please try again later."
+        );
+        return;
+      }
+
+      const reply =
+        data?.choices?.[0]?.message?.content ||
+        "I'm sorry, I couldn't understand that.";
+
+      addBotMessage(reply, msg);
+    } catch (err) {
+      console.error("Network Error:", err);
+      addBotMessage("⚠️ Network error. Please try again.");
     }
-
-    const reply =
-      data?.choices?.[0]?.message?.content ||
-      "I'm sorry, I couldn't understand that.";
-
-    addBotMessage(reply, msg);
-  } catch (err) {
-    console.error("Network Error:", err);
-    addBotMessage("⚠️ Network error. Please try again.");
   }
-}
-
 
   // ============================
   // SUGGESTION CHIPS
