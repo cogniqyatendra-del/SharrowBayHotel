@@ -4178,7 +4178,7 @@ footer {
   }
   
   .footer-right {
-    flex-direction: column !important;
+    flex-direction: row !important;
   }
 }
 
