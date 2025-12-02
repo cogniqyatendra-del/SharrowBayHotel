@@ -688,7 +688,7 @@ footer {
 /* ------------------------ */
 
 .rooms-wrapper {
-  padding-top: 80px;
+  padding-top: 0;
   padding-bottom: 80px;
 }
 
@@ -3857,7 +3857,7 @@ footer {
   }
   
   .hero-content .booking-widget {
-    padding: 24px 20px !important;
+    padding: 24px 50px !important;
   }
 }
 
@@ -4485,6 +4485,7 @@ footer {
     align-items: flex-start !important;
     gap: 12px !important;
     padding-right: 0 !important;
+    flex-wrap: wrap !important;
   }
 
   .room-bottom .price {
