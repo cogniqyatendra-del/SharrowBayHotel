@@ -3085,7 +3085,7 @@ footer {
 .vt-bg-premium {
   position: absolute;
   inset: 0;
-  background: url('images/360-new.avif') center/cover no-repeat;
+  background: url('images/full-hotel.JPG') center/cover no-repeat;
   filter: brightness(0.48);
   z-index: 1;
 }
