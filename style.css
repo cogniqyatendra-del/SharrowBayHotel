@@ -4571,3 +4571,47 @@ footer {
   margin-right: 10px;
   font-size: 0.9em;
 }
+/* GOLD GLOW SCROLL ARROW */
+.scroll-down {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  color: var(--accent); /* gold */
+  cursor: pointer;
+  z-index: 10;
+  animation: bounce 1.8s infinite, goldGlow 2.2s infinite;
+  opacity: 0.95;
+}
+
+/* Hover effect */
+.scroll-down:hover {
+  transform: translateX(-50%) scale(1.15);
+  opacity: 1;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 12px); }
+}
+
+/* Gold glowing effect */
+@keyframes goldGlow {
+  0% {
+    text-shadow: 0 0 6px rgba(197, 160, 89, 0.6),
+                 0 0 12px rgba(197, 160, 89, 0.4),
+                 0 0 18px rgba(197, 160, 89, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.9),
+                 0 0 20px rgba(197, 160, 89, 0.6),
+                 0 0 30px rgba(197, 160, 89, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 6px rgba(197, 160, 89, 0.6),
+                 0 0 12px rgba(197, 160, 89, 0.4),
+                 0 0 18px rgba(197, 160, 89, 0.2);
+  }
+}
