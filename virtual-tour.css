@@ -1,0 +1,329 @@
+/* ===================================
+   PREMIUM VIRTUAL TOUR STYLES
+   Matches Sharrow Bay Hotel Theme
+   =================================== */
+
+/* Tour Container - More Compact */
+.tour-panorama-viewer {
+    width: 100%;
+    height: 520px;
+    /* Reduced from 600px for more compact design */
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Swiper Container */
+.tour-swiper {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tour Images - Clean and Static for Performance */
+.tour-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Removed Ken Burns animation for better performance */
+    background: #1a1a1a;
+    /* Fallback color */
+}
+
+/* Info Overlay with Enhanced Gradient */
+.tour-info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.8) 40%,
+            rgba(0, 0, 0, 0.4) 70%,
+            transparent 100%);
+    padding: 35px 30px 25px;
+    z-index: 10;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.tour-info-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+}
+
+.swiper-slide-active .tour-info-content {
+    animation: slideUpFade 0.6s ease-out;
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tour-scene-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #C5A059;
+    margin: 0 0 10px 0;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    /* Removed shimmer animation */
+}
+
+.tour-scene-desc {
+    font-size: 15px;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    opacity: 0.95;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.tour-scene-price {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 600;
+    color: #FFD700;
+    background: rgba(197, 160, 89, 0.25);
+    padding: 7px 18px;
+    border-radius: 25px;
+    border: 2px solid #C5A059;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+}
+
+.tour-scene-price:hover {
+    background: rgba(197, 160, 89, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+}
+
+/* Navigation Arrows with Enhanced Style */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #C5A059 !important;
+    background: rgba(0, 0, 0, 0.6);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(197, 160, 89, 0.3);
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background: rgba(197, 160, 89, 0.9);
+    color: #ffffff !important;
+    transform: scale(1.15);
+    border-color: #C5A059;
+    box-shadow: 0 0 25px rgba(197, 160, 89, 0.6);
+}
+
+/* Pagination Dots with Enhanced Animation */
+.swiper-pagination-bullet {
+    background: #ffffff;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+
+.swiper-pagination-bullet-active {
+    background: #C5A059;
+    opacity: 1;
+    width: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.8);
+}
+
+/* Scene Counter with Enhanced Design */
+.tour-counter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #C5A059;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(197, 160, 89, 0.4);
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.tour-counter:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #C5A059;
+    transform: scale(1.05);
+}
+
+.current-slide {
+    color: #FFD700;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+/* Progress Bar */
+.tour-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 25;
+}
+
+.tour-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #C5A059 0%, #FFD700 100%);
+    width: 0%;
+    transition: width 4s linear;
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.8);
+}
+
+.swiper-slide-active .tour-progress-bar {
+    width: 100%;
+}
+
+/* Loading Spinner */
+.tour-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.tour-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(197, 160, 89, 0.3);
+    border-radius: 50%;
+    border-top-color: #C5A059;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Parallax Effect on Slide Change */
+.swiper-slide {
+    overflow: hidden;
+    background: #1a1a1a;
+    /* Fallback */
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .tour-panorama-viewer {
+        height: 420px;
+        /* More compact on mobile */
+    }
+
+    .tour-scene-title {
+        font-size: 22px;
+    }
+
+    .tour-scene-desc {
+        font-size: 13px;
+    }
+
+    .tour-scene-price {
+        font-size: 15px;
+        padding: 6px 15px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 40px;
+        height: 40px;
+    }
+
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+        font-size: 16px;
+    }
+
+    .tour-counter {
+        top: 15px;
+        right: 15px;
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .current-slide {
+        font-size: 17px;
+    }
+
+    .tour-info-overlay {
+        padding: 25px 20px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tour-panorama-viewer {
+        height: 380px;
+    }
+
+    .tour-scene-title {
+        font-size: 19px;
+    }
+
+    .tour-scene-desc {
+        font-size: 12px;
+    }
+}
+
+/* Smooth Fade Transitions */
+.swiper-fade .swiper-slide {
+    transition-property: opacity;
+}
+
+.swiper-fade .swiper-slide-active {
+    opacity: 1;
+}
+
+/* Accessibility - Focus States */
+.swiper-button-prev:focus,
+.swiper-button-next:focus,
+.swiper-pagination-bullet:focus {
+    outline: 2px solid #C5A059;
+    outline-offset: 3px;
+}

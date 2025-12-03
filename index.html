@@ -53,7 +53,10 @@
     <link rel="stylesheet" href="reservation-modal.css" />
     <link rel="stylesheet" href="gallery-enhanced.css" />
     <link rel="stylesheet" href="custom-icons.css" />
-    <!-- NOTE: removed 360 viewer libraries (three/panolens/photo-sphere) since we are using Google Maps now -->
+    <link rel="stylesheet" href="virtual-tour.css" />
+    <!-- Swiper.js for Premium Virtual Tour Slideshow -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script type="application/ld+json">
       {
@@ -631,13 +634,104 @@
     <h2 class="modal-title">Virtual Tour</h2>
     <p class="modal-subtitle">Explore our hotel in immersive 360°</p>
 
-    <!-- GOOGLE MAP WRAPPER with Premium Gold Glow -->
-    <div class="tour-map-frame">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2311.7982480160163!2d-2.846408923300556!3d54.589928972675935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487ce5710030c0c1%3A0x65eed713a0bf4b8f!2sSharrow%20Bay!5e0!3m2!1sen!2sin!4v1764324283869!5m2!1sen!2sin"
-        width="100%" height="480" style="border:0;" allowfullscreen=""
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <!-- Premium Virtual Tour Slideshow -->
+    <div id="panorama-viewer" class="tour-panorama-viewer">
+      <!-- Swiper Container -->
+      <div class="swiper tour-swiper">
+        <div class="swiper-wrapper">
+          
+          <!-- Slide 1: Lake View Villa Room -->
+          <div class="swiper-slide">
+            <img src="images/Lake-View-Villa-Room.jpg" alt="Lake View Villa Room" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Lake View Villa Room</h3>
+                <p class="tour-scene-desc">Panoramic views of Ullswater Lake from our premium villa rooms</p>
+                <span class="tour-scene-price">From £380/night</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+          <!-- Slide 2: Riverside Double Room -->
+          <div class="swiper-slide">
+            <img src="images/riverside_double.png" alt="Riverside Double Room" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Riverside Double Room</h3>
+                <p class="tour-scene-desc">Elegant riverside accommodation with stunning water views</p>
+                <span class="tour-scene-price">From £260/night</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+          <!-- Slide 3: Award-Winning Dining -->
+          <div class="swiper-slide">
+            <img src="images/dining.png" alt="Award-Winning Dining" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Award-Winning Dining</h3>
+                <p class="tour-scene-desc">Michelin-starred cuisine in an elegant lakeside setting</p>
+                <span class="tour-scene-price">Reservations Required</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+          <!-- Slide 4: River View -->
+          <div class="swiper-slide">
+            <img src="images/RiverView.jpg" alt="River View" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Scenic River Views</h3>
+                <p class="tour-scene-desc">Breathtaking views of the Lake District countryside</p>
+                <span class="tour-scene-price">Experience Luxury</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+          <!-- Slide 5: Classic Double Room -->
+          <div class="swiper-slide">
+            <img src="images/double.jpg" alt="Classic Double Room" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Classic Double Room</h3>
+                <p class="tour-scene-desc">Timeless elegance with modern luxury amenities</p>
+                <span class="tour-scene-price">From £220/night</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+          <!-- Slide 6: Historic Property -->
+          <div class="swiper-slide">
+            <img src="images/oldHouse.jpg" alt="Historic Property" class="tour-image">
+            <div class="tour-info-overlay">
+              <div class="tour-info-content">
+                <h3 class="tour-scene-title">Historic Sharrow Bay</h3>
+                <p class="tour-scene-desc">A heritage property since 1948, England's first country house hotel</p>
+                <span class="tour-scene-price">Rich History</span>
+              </div>
+            </div>
+            <div class="tour-progress"><div class="tour-progress-bar"></div></div>
+          </div>
+
+        </div>
+        
+        <!-- Navigation Arrows -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        
+        <!-- Pagination Dots -->
+        <div class="swiper-pagination"></div>
+        
+        <!-- Scene Counter -->
+        <div class="tour-counter">
+          <span class="current-slide">1</span> / <span class="total-slides">6</span>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -646,7 +740,7 @@
     <!-- main external script (unchanged, keeps existing site behavior) -->
     <!-- <script src="script.js"></script> -->
 
-    <!-- Inline modal open/close logic for Virtual Tour (Google Maps) -->
+    <!-- Inline modal open/close logic for Virtual Tour (Premium Slideshow) -->
     <script>
       (function () {
         // elements
@@ -654,17 +748,135 @@
         const tourModal = document.getElementById('tourModal');
         const tourClose = tourModal ? tourModal.querySelector('.tour-close') : null;
 
+        let swiper = null;
+        let firstImageLoaded = false;
+
+        // Image URLs
+        const imageUrls = [
+          'images/Lake-View-Villa-Room.jpg',
+          'images/riverside_double.png',
+          'images/dining.png',
+          'images/RiverView.jpg',
+          'images/double.jpg',
+          'images/oldHouse.jpg'
+        ];
+
+        // Preload first image immediately for instant start
+        function preloadFirstImage() {
+          const img = new Image();
+          img.src = imageUrls[0];
+          img.onload = () => {
+            firstImageLoaded = true;
+            console.log('First tour image preloaded');
+          };
+        }
+
+        // Preload remaining images
+        function preloadAllImages() {
+          imageUrls.forEach(url => {
+            const img = new Image();
+            img.src = url;
+          });
+        }
+
+        // Initialize Swiper slideshow
+        function initTourSwiper() {
+          if (swiper) return; // Already initialized
+
+          swiper = new Swiper('.tour-swiper', {
+            // Slideshow settings - Faster transitions
+            loop: true,
+            speed: 600,
+            effect: 'fade',
+            fadeEffect: {
+              crossFade: true
+            },
+            autoplay: {
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            },
+            
+            // Preload images
+            preloadImages: false, // We handle preloading manually
+            lazy: false,
+            
+            // Navigation
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            
+            // Pagination
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+              dynamicBullets: true
+            },
+            
+            // Keyboard control
+            keyboard: {
+              enabled: true,
+              onlyInViewport: true
+            },
+            
+            // Touch/swipe
+            touchRatio: 1,
+            grabCursor: true,
+            touchStartPreventDefault: false,
+            
+            // Update counter on slide change
+            on: {
+              slideChange: function () {
+                const currentSlide = document.querySelector('.current-slide');
+                if (currentSlide) {
+                  currentSlide.textContent = this.realIndex + 1;
+                }
+              },
+              init: function() {
+                console.log('Virtual tour slideshow initialized');
+              }
+            }
+          });
+        }
+
+        // Cleanup swiper
+        function cleanupSwiper() {
+          if (swiper) {
+            swiper.destroy(true, true);
+            swiper = null;
+          }
+        }
+
+        // Start preloading immediately
+        preloadFirstImage();
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', preloadAllImages);
+        } else {
+          preloadAllImages();
+        }
+
         // safety checks
         if (!tourBtn || !tourModal) {
-          // nothing to wire up
           console.warn('Virtual tour button or modal not found.');
         } else {
           // open modal
           tourBtn.addEventListener('click', function (e) {
             e.preventDefault();
+            
+            // Show modal immediately
             tourModal.style.display = 'flex';
             tourModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden'; // prevent background scroll while modal open
+            document.body.style.overflow = 'hidden';
+            
+            // Initialize or Reset Swiper
+            if (!swiper) {
+              initTourSwiper();
+            } else {
+              // Reset to first slide instantly (0ms duration)
+              swiper.slideToLoop(0, 0); 
+              swiper.autoplay.start();
+            }
           });
 
           // close via close button
@@ -673,6 +885,9 @@
               tourModal.style.display = 'none';
               tourModal.setAttribute('aria-hidden', 'true');
               document.body.style.overflow = '';
+              if (swiper) {
+                swiper.autoplay.stop();
+              }
             });
           }
 
@@ -682,6 +897,9 @@
               tourModal.style.display = 'none';
               tourModal.setAttribute('aria-hidden', 'true');
               document.body.style.overflow = '';
+              if (swiper) {
+                swiper.autoplay.stop();
+              }
             }
           });
 
@@ -691,6 +909,9 @@
               tourModal.style.display = 'none';
               tourModal.setAttribute('aria-hidden', 'true');
               document.body.style.overflow = '';
+              if (swiper) {
+                swiper.autoplay.stop();
+              }
             }
           });
         }

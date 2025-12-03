@@ -783,4 +783,18 @@ document.addEventListener("DOMContentLoaded", () => {
       dropMenu.classList.remove("open");
     }
   });
+
+  // Close dropdown AND mobile nav when a link inside the dropdown is clicked
+  const dropLinks = dropMenu.querySelectorAll("a");
+  dropLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      dropMenu.classList.remove("open");
+      
+      // Also close the main mobile nav if it's open
+      const nav = document.querySelector("nav");
+      if (nav && nav.classList.contains("mobile-active")) {
+        toggleMobileNav();
+      }
+    });
+  });
 });
